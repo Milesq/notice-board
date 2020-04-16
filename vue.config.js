@@ -6,4 +6,5 @@ module.exports = {
   configureWebpack: {
     plugins: [new stylelintPlugin({ files: ['src/**/*.{vue,scss}'], emitWarning: true })],
   },
+  transpileDependencies: ['vuetify'],
 };
