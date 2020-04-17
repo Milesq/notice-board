@@ -13,11 +13,11 @@
 
         <v-img
           alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
+          class="mt-1 hidden-sm-and-down"
           contain
           min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
           width="100"
+          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
         />
       </div>
 
@@ -30,23 +30,7 @@
     </v-app-bar>
 
     <v-content>
-      <HelloWorld />
+      <div>content</div>
     </v-content>
   </v-app>
 </template>
-
-<script>
-import HelloWorld from './components/HelloWorld';
-
-export default {
-  name: 'App',
-
-  components: {
-    HelloWorld,
-  },
-
-  data: () => ({
-    //
-  }),
-};
-</script>
