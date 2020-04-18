@@ -2,7 +2,7 @@
   <v-app>
     <v-app-bar dark app color="primary">
       <v-toolbar-title>
-        <v-btn text rounded to="/">Ogłoszenia</v-btn>
+        <v-btn text rounded to="/">{{ $t('title') }}</v-btn>
       </v-toolbar-title>
     </v-app-bar>
 

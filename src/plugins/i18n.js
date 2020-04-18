@@ -4,19 +4,21 @@ import VueI18n from 'vue-i18n';
 Vue.use(VueI18n);
 
 const messages = {
-  en: {
-    message: {
-      hello: 'hello world',
-    },
+  'en-EN': {
+    hello: 'Announcement',
+    nameAndSurname: 'Name',
+    typeName: 'Type name and surname',
+    nameErrors: ['The name can contains only letters', 'Please pass both name and surname'],
   },
-  pl: {
-    message: {
-      hello: 'Witaj Świecie',
-    },
+  'pl-PL': {
+    title: 'Ogłoszenia',
+    nameAndSurname: 'Imie i nazwisko',
+    typeName: 'Podaj imię i nazwisko',
+    nameErrors: ['Imię może się składać tylko z liter', 'Podaj zarówno imię jak i nazwisko'],
   },
 };
 
 export default new VueI18n({
-  locale: 'pl',
+  locale: navigator.language,
   messages,
 });

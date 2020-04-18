@@ -3,10 +3,10 @@
     <v-row justify="center">
       <v-col sm="8" md="4">
         <v-card>
-          <v-card-title>Podaj imię i nazwisko</v-card-title>
+          <v-card-title>{{ $t('typeName') }}</v-card-title>
           <v-card-text>
             <v-form @submit.prevent="submit">
-              <v-text-field v-model="name" label="Imie i nazwisko" />
+              <v-text-field v-model="name" :label="$t('nameAndSurname')" />
               <v-divider />
               <v-card-actions>
                 <v-spacer />
