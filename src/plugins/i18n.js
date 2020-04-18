@@ -9,12 +9,16 @@ const messages = {
     nameAndSurname: 'Name',
     typeName: 'Type name and surname',
     nameErrors: ['The name can contains only letters', 'Please pass both name and surname'],
+    name: 'Name',
+    search: 'Search...',
   },
   'pl-PL': {
     title: 'Ogłoszenia',
     nameAndSurname: 'Imie i nazwisko',
     typeName: 'Podaj imię i nazwisko',
     nameErrors: ['Imię może się składać tylko z liter', 'Podaj zarówno imię jak i nazwisko'],
+    name: 'Imię',
+    search: 'Szukaj...',
   },
 };
 
