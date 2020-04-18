@@ -30,7 +30,6 @@
             @save="update"
           >
             {{ props.item.name }}
-
             <template #input>
               <v-text-field v-model="props.item.name" single-line />
             </template>
@@ -42,12 +41,15 @@
 </template>
 
 <script>
+// eslint-disable-next-line
+import { firestore } from 'firebase/app';
+
 export default {
   data() {
     return {
       searchText: '',
       newName: '',
-      users: ['Miłosz Wiśniewski'].map(name => ({ name })),
+      users: [],
       formValid: false,
 
       nameRules: [
@@ -73,6 +75,13 @@ export default {
     update() {
       console.log(this.users);
     },
+  },
+  async created() {
+    /** @type {firestore.Firestore} */
+    const db = this.$db.collection('users');
+    const { docs: users } = await db.get();
+
+    this.users = users.map(user => user.exists && user.data());
   },
 };
 </script>
