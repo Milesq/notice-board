@@ -14,7 +14,12 @@ export default {
   methods: {
     login() {
       const provider = new firebase.auth.GoogleAuthProvider();
-      firebase.auth().signInWithPopup(provider);
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(() => {
+          this.$router.push('/admin');
+        });
     },
   },
   components: {

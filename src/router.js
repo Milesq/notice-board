@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
 import Home from '@/views/Home.vue';
 import Board from '@/views/Board.vue';
 
@@ -39,9 +41,16 @@ const router = new VueRouter({
   ],
 });
 
-router.beforeEach(({ meta: { admin } }, from, next) => {
+function getUser() {
+  return new Promise(resolve => {
+    firebase.auth().onAuthStateChanged(resolve);
+  });
+}
+
+router.beforeEach(async ({ meta: { admin } }, from, next) => {
   if (admin) {
-    next('/login/admin');
+    const user = await getUser();
+    if (!user) next('/login/admin');
   }
 
   next();
