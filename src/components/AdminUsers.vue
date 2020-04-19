@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-text>
-      <v-form ref="form" @submit.prevent="newUser" class="d-flex align-center mb-1">
+      <v-form ref="form" @submit.prevent="createUser" class="d-flex align-center mb-1">
         <v-text-field :rules="nameRules" v-model="newName" :label="$t('nameAndSurname')" />
         <v-btn type="submit" class="ma-2" tile outlined color="primary">
           <v-icon left>mdi-check</v-icon>Save
@@ -23,18 +23,27 @@
         :headers="headers"
         :items="users"
         :search="searchText"
+        :footer-props="{ 'page-text': '' }"
       >
         <template #item.name="props">
           <v-edit-dialog
             transition="slide-y-transition"
             :return-value.sync="props.item.name"
-            @save="update"
+            @save="updateUser(props.item)"
           >
-            {{ props.item.name }}
+            <span>
+              {{ props.item.name }}
+            </span>
+
             <template #input>
               <v-text-field v-model="props.item.name" single-line />
             </template>
           </v-edit-dialog>
+        </template>
+        <template #item.actions="{ item }">
+          <v-btn class="mx-2" fab dark x-small color="error" @click="deleteUser(item)">
+            <v-icon dark>mdi-delete</v-icon>
+          </v-btn>
         </template>
       </v-data-table>
 
@@ -44,6 +53,7 @@
         :items-per-page="5"
         :headers="headers"
         :items="Array(5).fill({ name: '' })"
+        :footer-props="{ 'page-text': '' }"
       >
         <template #item.name>
           <v-skeleton-loader type="table-cell" />
@@ -73,28 +83,54 @@ export default {
           align: 'start',
           value: 'name',
         },
+        {
+          value: 'actions',
+        },
       ],
     };
   },
   methods: {
-    newUser() {
+    createUser() {
       if (!this.$refs.form.validate()) return;
 
       this.$refs.form.resetValidation();
-      this.users.push({ name: this.newName });
+
+      /** @type {firestore.Firestore} */
+      const db = this.$db.collection('users');
+      const newDoc = db.doc();
+      newDoc.set({
+        name: this.newName,
+      });
+
+      this.users.push({ name: this.newName, id: newDoc.id });
+
       this.newName = '';
-      this.update();
     },
-    update() {
-      console.log(this.users);
+    async readUsers() {
+      /** @type {firestore.Firestore} */
+      const db = this.$db.collection('users');
+      const { docs: users } = await db.get();
+
+      return users.map(user => user.exists && { ...user.data(), id: user.id });
+    },
+    updateUser({ id, name }) {
+      this.$db
+        .collection('users')
+        .doc(id)
+        .update({ name });
+    },
+    deleteUser({ id, name }) {
+      if (confirm(this.$t('deletePrompt', { name }))) {
+        this.users = this.users.filter(user => user.name != name);
+        this.$db
+          .collection('users')
+          .doc(id)
+          .delete();
+      }
     },
   },
   async created() {
-    /** @type {firestore.Firestore} */
-    const db = this.$db.collection('users');
-    const { docs: users } = await db.get();
-
-    this.users = users.map(user => user.exists && user.data());
+    this.users = await this.readUsers();
   },
 };
 </script>

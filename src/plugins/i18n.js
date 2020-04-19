@@ -11,6 +11,7 @@ const messages = {
     nameErrors: ['The name can contains only letters', 'Please pass both name and surname'],
     name: 'Name',
     search: 'Search...',
+    deletePrompt: 'Are you sure you want to delete {name}',
   },
   'pl-PL': {
     title: 'Ogłoszenia',
@@ -19,6 +20,7 @@ const messages = {
     nameErrors: ['Imię może się składać tylko z liter', 'Podaj zarówno imię jak i nazwisko'],
     name: 'Imię',
     search: 'Szukaj...',
+    deletePrompt: 'Czy chcesz usunąć użytkownika {name}',
   },
 };
 
