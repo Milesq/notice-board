@@ -6,7 +6,7 @@ import Db from './plugins/db';
 import { vuetify, i18n } from './plugins';
 
 // TODO: Db plugin should be applied after admin auth with google
-Vue.use(Db);
+Vue.use(Db, { injectedCollections: ['users'] });
 
 Vue.config.productionTip = false;
 

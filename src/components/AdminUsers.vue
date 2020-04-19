@@ -64,9 +64,6 @@
 </template>
 
 <script>
-// eslint-disable-next-line
-import { firestore } from 'firebase/app';
-
 export default {
   data() {
     return {
@@ -95,9 +92,7 @@ export default {
 
       this.$refs.form.resetValidation();
 
-      /** @type {firestore.Firestore} */
-      const db = this.$db.collection('users');
-      const newDoc = db.doc();
+      const newDoc = this.$users.doc();
       newDoc.set({
         name: this.newName,
       });
@@ -107,25 +102,17 @@ export default {
       this.newName = '';
     },
     async readUsers() {
-      /** @type {firestore.Firestore} */
-      const db = this.$db.collection('users');
-      const { docs: users } = await db.get();
+      const { docs: users } = await this.$users.get();
 
       return users.map(user => user.exists && { ...user.data(), id: user.id });
     },
     updateUser({ id, name }) {
-      this.$db
-        .collection('users')
-        .doc(id)
-        .update({ name });
+      this.$users.doc(id).update({ name });
     },
     deleteUser({ id, name }) {
       if (confirm(this.$t('deletePrompt', { name }))) {
         this.users = this.users.filter(user => user.name != name);
-        this.$db
-          .collection('users')
-          .doc(id)
-          .delete();
+        this.$users.doc(id).delete();
       }
     },
   },
