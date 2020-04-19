@@ -4,6 +4,7 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import Home from '@/views/Home.vue';
 import Board from '@/views/Board.vue';
+import config from '../config.json';
 
 Vue.use(VueRouter);
 
@@ -50,7 +51,11 @@ function getUser() {
 router.beforeEach(async ({ meta: { admin } }, from, next) => {
   if (admin) {
     const user = await getUser();
-    if (!user) next('/login/admin');
+
+    if (!user || !config.admins.includes(user.email)) {
+      firebase.auth().signOut();
+      next('/login/admin');
+    }
   }
 
   next();

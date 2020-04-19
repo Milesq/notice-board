@@ -1,7 +1,9 @@
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 
-import config from '../../config';
+import cfg from '../../config';
+
+const config = cfg.firebase;
 
 config.apiKey = process.env.VUE_APP_FIREBASE_API;
 

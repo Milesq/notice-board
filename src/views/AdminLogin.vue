@@ -8,6 +8,7 @@
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import GoogleSingIn from '@/components/GoogleSignIn.vue';
+import config from '../../config.json';
 
 export default {
   name: 'AdminLogin',
@@ -17,7 +18,14 @@ export default {
       firebase
         .auth()
         .signInWithPopup(provider)
-        .then(() => {
+        .then(({ user }) => {
+          if (!config.admins.includes(user.email)) {
+            firebase.auth().signOut();
+            alert('You are not an admin!');
+            this.$router.push('/');
+            return;
+          }
+
           this.$router.push('/admin');
         });
     },
