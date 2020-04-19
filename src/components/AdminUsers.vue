@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-text>
-      <v-form v-model="formValid" @submit.prevent="newUser" class="d-flex align-center mb-1">
+      <v-form ref="form" @submit.prevent="newUser" class="d-flex align-center mb-1">
         <v-text-field :rules="nameRules" v-model="newName" :label="$t('nameAndSurname')" />
         <v-btn type="submit" class="ma-2" tile outlined color="primary">
           <v-icon left>mdi-check</v-icon>Save
@@ -17,6 +17,7 @@
       />
 
       <v-data-table
+        v-if="users.length"
         class="elevation-1 mt-7"
         :items-per-page="5"
         :headers="headers"
@@ -36,6 +37,18 @@
           </v-edit-dialog>
         </template>
       </v-data-table>
+
+      <v-data-table
+        v-else
+        class="elevation-1 mt-7"
+        :items-per-page="5"
+        :headers="headers"
+        :items="Array(5).fill({ name: '' })"
+      >
+        <template #item.name>
+          <v-skeleton-loader type="table-cell" />
+        </template>
+      </v-data-table>
     </v-card-text>
   </v-card>
 </template>
@@ -50,11 +63,9 @@ export default {
       searchText: '',
       newName: '',
       users: [],
-      formValid: false,
-
       nameRules: [
-        name => /^[a-zA-Z\s]+$/.test(name) || this.$t('nameErrors[0]'),
-        name => /.+\s.+/.test(name) || this.$t('nameErrors[1]'),
+        name => name.length == 0 || /^[a-zA-Z\s]+$/.test(name) || this.$t('nameErrors[0]'),
+        name => name.length == 0 || /.+\s.+/.test(name) || this.$t('nameErrors[1]'),
       ],
       headers: [
         {
@@ -67,8 +78,10 @@ export default {
   },
   methods: {
     newUser() {
-      if (!this.formValid) return;
+      if (!this.$refs.form.validate()) return;
 
+      this.$refs.form.resetValidation();
+      this.users.push({ name: this.newName });
       this.newName = '';
       this.update();
     },
