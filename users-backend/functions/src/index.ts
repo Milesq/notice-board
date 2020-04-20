@@ -20,7 +20,7 @@ export const checkUserName = functions.https.onRequest(async (request, response)
     const users = await Promise.all((await db.collection('users').listDocuments())
       .map(async el => (await el.get()).data()));
 
-    let isAllowed = matchName(users.map(el => el?.name), name);
+    const isAllowed = matchName(users.map(el => el?.name), name);
 
     response.setHeader('Access-Control-Allow-Origin', '*');
 
@@ -50,8 +50,5 @@ function matchName(arr: string[], name: string): boolean {
     .join('')
     .replace(/[^a-z]/g, '');
 
-  arr = arr.map(name => normalize(name));
-  name = normalize(name);
-
-  return arr.includes(name);
+  return arr.map(user => normalize(user)).includes(normalize(name));
 }
