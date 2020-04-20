@@ -1,6 +1,5 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
-import { v1 } from 'uuid';
 
 const serviceAccount = require('../credentials.json');
 
@@ -11,9 +10,10 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
-const uuidToken = admin.auth().createCustomToken(v1());
+const uuidToken = () => admin.auth().createCustomToken("anonymous-account");
 
 export const checkUserName = functions.https.onRequest(async (request, response) => {
+
   try {
     const { name } = JSON.parse(request.body);
 
@@ -25,7 +25,7 @@ export const checkUserName = functions.https.onRequest(async (request, response)
     response.setHeader('Access-Control-Allow-Origin', '*');
 
     response.send({
-      token: isAllowed? await uuidToken : '',
+      token: isAllowed? await uuidToken() : '',
     });
   } catch {
     response.send({

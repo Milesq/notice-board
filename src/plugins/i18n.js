@@ -12,6 +12,7 @@ const messages = {
     name: 'Name',
     search: 'Search...',
     deletePrompt: 'Are you sure you want to delete {name}',
+    incorrectData: 'Incorrect data',
   },
   'pl-PL': {
     title: 'Ogłoszenia',
@@ -21,6 +22,7 @@ const messages = {
     name: 'Imię',
     search: 'Szukaj...',
     deletePrompt: 'Czy chcesz usunąć użytkownika {name}',
+    incorrectData: 'Nieprawidłowe dane',
   },
 };
 
