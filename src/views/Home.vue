@@ -21,12 +21,21 @@
 </template>
 
 <script>
+import config from '../../config.json';
+
 export default {
   data: () => ({
     name: '',
   }),
   methods: {
-    submit() {},
+    async submit() {
+      const { data } = await fetch(`${config.firebaseAPI}/checkUserName`, {
+        method: 'POST',
+        body: JSON.stringify({ name: this.name }),
+      }).then(resp => resp.text());
+
+      console.log(data);
+    },
   },
 };
 </script>
