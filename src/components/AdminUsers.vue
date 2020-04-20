@@ -1,5 +1,6 @@
 <template>
   <v-card>
+    <v-card-title>{{ $t('addUsers') }}</v-card-title>
     <v-card-text>
       <v-form ref="form" @submit.prevent="createUser" class="d-flex align-center mb-1">
         <v-text-field :rules="nameRules" v-model="newName" :label="$t('nameAndSurname')" />
@@ -52,7 +53,7 @@
         class="elevation-1 mt-7"
         :items-per-page="5"
         :headers="headers"
-        :items="Array(5).fill({ name: '' })"
+        :items="Array(4).fill({ name: '' })"
         :footer-props="{ 'page-text': '' }"
       >
         <template #item.name>

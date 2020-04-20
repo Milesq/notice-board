@@ -5,7 +5,7 @@ Vue.use(VueI18n);
 
 const messages = {
   'en-EN': {
-    hello: 'Announcement',
+    title: 'Announcement',
     nameAndSurname: 'Name',
     typeName: 'Type name and surname',
     nameErrors: ['The name can contains only letters', 'Please pass both name and surname'],
@@ -15,6 +15,9 @@ const messages = {
     incorrectData: 'Incorrect data',
     logout: 'Logout',
     changeTheme: 'Change Theme',
+    addUsers: 'Add users',
+    manageAnnouncements: 'Manage announcements',
+    titleWord: 'Title',
   },
   'pl-PL': {
     title: 'Ogłoszenia',
@@ -27,6 +30,9 @@ const messages = {
     incorrectData: 'Nieprawidłowe dane',
     logout: 'Wyloguj się',
     changeTheme: 'Zmień tło',
+    addUsers: 'Dodawanie użytkowników',
+    manageAnnouncements: 'Menadżer ogłoszeń',
+    titleWord: 'Tytuł',
   },
 };
 
