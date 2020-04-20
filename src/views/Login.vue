@@ -60,13 +60,14 @@ export default {
     },
     closeSnackbar() {
       this.snackbar = false;
-      this.loading = false;
-      this.loadingType = 'primary';
     },
   },
   watch: {
     snackbar(newVal) {
-      this.loading = newVal;
+      if (!newVal) {
+        this.loading = false;
+        this.loadingType = 'primary';
+      }
     },
   },
 };
