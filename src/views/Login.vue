@@ -64,5 +64,10 @@ export default {
       this.loadingType = 'primary';
     },
   },
+  watch: {
+    snackbar(newVal) {
+      this.loading = newVal;
+    },
+  },
 };
 </script>
