@@ -4,12 +4,24 @@
       <!-- <v-toolbar-title> -->
       <v-btn text rounded to="/">{{ $t('title') }}</v-btn>
       <v-spacer />
-      <v-btn @click="changeTheme" text fab dark>
-        <v-icon>mdi-brightness-6</v-icon>
-      </v-btn>
-      <v-btn @click="logout" v-if="loggedIn" text fab dark>
-        <v-icon>mdi-logout-variant</v-icon>
-      </v-btn>
+
+      <v-tooltip bottom>
+        <template #activator="{ on }">
+          <v-btn @click="changeTheme" v-on="on" text fab dark>
+            <v-icon>mdi-brightness-6</v-icon>
+          </v-btn>
+        </template>
+        <span>{{ $t('changeTheme') }}</span>
+      </v-tooltip>
+
+      <v-tooltip bottom v-if="loggedIn">
+        <template #activator="{ on }">
+          <v-btn @click="logout" v-on="on" text fab dark>
+            <v-icon>mdi-logout-variant</v-icon>
+          </v-btn>
+        </template>
+        <span>{{ $t('logout') }}</span>
+      </v-tooltip>
       <!-- </v-toolbar-title> -->
     </v-app-bar>
 

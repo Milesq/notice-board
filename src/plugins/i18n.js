@@ -13,6 +13,8 @@ const messages = {
     search: 'Search...',
     deletePrompt: 'Are you sure you want to delete {name}',
     incorrectData: 'Incorrect data',
+    logout: 'Logout',
+    changeTheme: 'Change Theme',
   },
   'pl-PL': {
     title: 'Ogłoszenia',
@@ -23,6 +25,8 @@ const messages = {
     search: 'Szukaj...',
     deletePrompt: 'Czy chcesz usunąć użytkownika {name}',
     incorrectData: 'Nieprawidłowe dane',
+    logout: 'Wyloguj się',
+    changeTheme: 'Zmień tło',
   },
 };
 
