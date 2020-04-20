@@ -29,7 +29,7 @@ export default {
   }),
   methods: {
     async submit() {
-      const { data } = await fetch(`${config.firebaseAPI}/checkUserName`, {
+      const data = await fetch(`${config.firebaseAPI}/checkUserName`, {
         method: 'POST',
         body: JSON.stringify({ name: this.name }),
       }).then(resp => resp.text());

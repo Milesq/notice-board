@@ -9,5 +9,5 @@
     "measurementId": "G-8R4SBW6S2K"
   },
   "admins": ["wmilosz88@gmail.com"],
-  "firebaseAPI": "http://localhost:5001/tests-d8957/us-central1"
+  "firebaseAPI": "https://us-central1-tests-d8957.cloudfunctions.net"
 }
