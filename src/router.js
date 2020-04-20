@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '@/views/Home.vue';
 import Board from '@/views/Board.vue';
 import config from '../config.json';
 
@@ -12,12 +11,15 @@ const router = new VueRouter({
     {
       path: '/',
       name: 'Home',
-      component: Home,
+      component: Board,
+      meta: {
+        authRequired: true,
+      },
     },
     {
-      path: '/board',
-      name: 'Board',
-      component: Board,
+      path: '/login',
+      name: 'Userlogin',
+      component: () => import(/* webpackChunkName: "adminLogin" */ '@/views/Login.vue'),
     },
     {
       path: '/admin',
@@ -46,17 +48,14 @@ function getUser() {
   });
 }
 
-router.beforeEach(async ({ meta: { admin } }, from, next) => {
-  if (admin) {
-    const user = await getUser();
+router.beforeEach(async ({ meta: { admin: adminRequired, authRequired } }, from, next) => {
+  const user = await getUser();
+  const isAdmin = config.admins.includes(user?.email);
+  const isLoggedIn = !!user || isAdmin;
 
-    if (!user || !config.admins.includes(user.email)) {
-      window.firebase.auth().signOut();
-      next('/login/admin');
-    }
-  }
-
-  next();
+  if (adminRequired && !isAdmin) next('/login/admin');
+  else if (authRequired && !isLoggedIn) next('/login');
+  else next();
 });
 
 export default router;

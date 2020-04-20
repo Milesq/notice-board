@@ -34,9 +34,14 @@ export default {
         body: JSON.stringify({ name: this.name }),
       }).then(resp => resp.json());
 
-      const x = await window.firebase.auth().signInWithCustomToken(token);
+      if (token == '') {
+        alert('Nieprawidłowe dane');
+        return;
+      }
 
-      console.log(x);
+      await window.firebase.auth().signInWithCustomToken(token);
+
+      this.$router.push('/');
     },
   },
 };
