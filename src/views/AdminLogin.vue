@@ -5,8 +5,6 @@
 </template>
 
 <script>
-import * as firebase from 'firebase/app';
-import 'firebase/auth';
 import GoogleSingIn from '@/components/GoogleSignIn.vue';
 import config from '../../config.json';
 
@@ -14,13 +12,13 @@ export default {
   name: 'AdminLogin',
   methods: {
     login() {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      firebase
+      const provider = new window.firebase.auth.GoogleAuthProvider();
+      window.firebase
         .auth()
         .signInWithPopup(provider)
         .then(({ user }) => {
           if (!config.admins.includes(user.email)) {
-            firebase.auth().signOut();
+            window.firebase.auth().signOut();
             alert('You are not an admin!');
             this.$router.push('/');
             return;

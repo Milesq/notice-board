@@ -1,7 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import * as firebase from 'firebase/app';
-import 'firebase/auth';
 import Home from '@/views/Home.vue';
 import Board from '@/views/Board.vue';
 import config from '../config.json';
@@ -44,7 +42,7 @@ const router = new VueRouter({
 
 function getUser() {
   return new Promise(resolve => {
-    firebase.auth().onAuthStateChanged(resolve);
+    window.firebase.auth().onAuthStateChanged(resolve);
   });
 }
 
@@ -53,7 +51,7 @@ router.beforeEach(async ({ meta: { admin } }, from, next) => {
     const user = await getUser();
 
     if (!user || !config.admins.includes(user.email)) {
-      firebase.auth().signOut();
+      window.firebase.auth().signOut();
       next('/login/admin');
     }
   }

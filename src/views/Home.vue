@@ -29,12 +29,14 @@ export default {
   }),
   methods: {
     async submit() {
-      const data = await fetch(`${config.firebaseAPI}/checkUserName`, {
+      const { token } = await fetch(`${config.firebaseAPI}/checkUserName`, {
         method: 'POST',
         body: JSON.stringify({ name: this.name }),
-      }).then(resp => resp.text());
+      }).then(resp => resp.json());
 
-      console.log(data);
+      const x = await window.firebase.auth().signInWithCustomToken(token);
+
+      console.log(x);
     },
   },
 };
