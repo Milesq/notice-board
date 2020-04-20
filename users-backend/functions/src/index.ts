@@ -36,10 +36,22 @@ export const checkUserName = functions.https.onRequest(async (request, response)
 });
 
 function matchName(arr: string[], name: string): boolean {
-  const normalize = (s: string) => s.toLowerCase().split(' ').join('').replace(/[^a-z]/g, '');
+  const accentsIn = 'ęóąśłżźćń'.split('');
+  const accentsOut = 'eoaslzzcn'.split('');
+  const accents: {[letter: string]: string} = accentsIn.reduce((acc, el, i) => ({ ...acc, [el]: accentsOut[i] }), {});
+
+  const normalize = (s: string) => s
+    .toLocaleLowerCase()
+    .split('')
+    .map(letter => accents[letter]?? letter)
+    .join('')
+    .split(' ')
+    .sort((a, b) => a.localeCompare(b, 'en', { sensitivity: 'base' }))
+    .join('')
+    .replace(/[^a-z]/g, '');
 
   arr = arr.map(name => normalize(name));
   name = normalize(name);
 
-  return true;
+  return arr.includes(name);
 }
