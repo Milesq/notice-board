@@ -46,7 +46,7 @@ export default {
       location.reload();
     },
   },
-  mounted() {
+  created() {
     window.firebase.auth().onAuthStateChanged(user => {
       this.loggedIn = !!user;
     });
