@@ -4,13 +4,11 @@ import 'firebase/firestore';
 import 'firebase/auth';
 import App from './App.vue';
 import './registerServiceWorker';
-import router from './router';
-import Db from './plugins/db';
-import { vuetify, i18n } from './plugins';
+import { vuetify, i18n, db, router } from './plugins';
 
 window.firebase = firebase;
 
-Vue.use(Db, { injectedCollections: ['users', 'announcements'] });
+Vue.use(db, { injectedCollections: ['users', 'announcements'] });
 
 Vue.config.productionTip = false;
 
