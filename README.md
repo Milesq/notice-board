@@ -1,34 +1,10 @@
-# announcement
+# Announcement
 
-## Project setup
-```
-yarn install
-```
+[![Netlify Status](https://api.netlify.com/api/v1/badges/620fbc32-ad88-423f-a5a5-d514d02e6b40/deploy-status)](https://app.netlify.com/sites/vigilant-leakey-473e5e/deploys)
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+Synchronized with firebase auth and firestore, announcements system with CRUD panel system.
 
-### Compiles and minifies for production
-```
-yarn build
-```
+## Features
 
-### Run your unit tests
-```
-yarn test:unit
-```
-
-### Run your end-to-end tests
-```
-yarn test:e2e
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- Login by name
+- Admin login with google
