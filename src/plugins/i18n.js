@@ -6,6 +6,7 @@ Vue.use(VueI18n);
 const messages = {
   'en-EN': {
     title: 'Announcement',
+    announcement: 'announcement',
     nameAndSurname: 'Name',
     typeName: 'Type name and surname',
     nameErrors: ['The name can contains only letters', 'Please pass both name and surname'],
@@ -24,6 +25,7 @@ const messages = {
   },
   'pl-PL': {
     title: 'Ogłoszenia',
+    announcement: 'ogłoszenie',
     nameAndSurname: 'Imie i nazwisko',
     typeName: 'Podaj imię i nazwisko',
     nameErrors: ['Imię może się składać tylko z liter', 'Podaj zarówno imię jak i nazwisko'],

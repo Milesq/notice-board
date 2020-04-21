@@ -1,8 +1,8 @@
 <template>
   <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
     <template #activator="{ on }">
-      <div v-on="on">
-        <slot></slot>
+      <div v-on="!passOpener ? on : {}">
+        <slot :open="on" />
       </div>
     </template>
     <v-card>
@@ -43,6 +43,10 @@ export default {
     content: '',
   }),
   props: {
+    passOpener: {
+      type: Boolean,
+      default: () => false,
+    },
     value: {
       type: Object,
       default: () => ({

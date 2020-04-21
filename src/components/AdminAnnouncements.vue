@@ -4,17 +4,26 @@
     <v-card-text>
       <v-list subheader three-line v-if="announcements.length">
         <EditableAnnouncement
+          pass-opener
           v-for="(el, idx) in announcements"
           :value="announcements[idx]"
-          @save="save(idx, $event)"
+          @save="update(idx, $event)"
           :key="el.title + idx"
         >
-          <v-list-item class="announcement" v-on:click.prevent>
-            <v-list-item-content>
-              <v-list-item-title v-html="el.title" />
-              <v-list-item-subtitle v-html="el.content" />
-            </v-list-item-content>
-          </v-list-item>
+          <template v-slot="{ open }">
+            <v-list-item class="announcement" v-on:click.prevent>
+              <v-list-item-content v-on="open">
+                <v-list-item-title v-html="el.title" />
+                <v-list-item-subtitle v-html="el.content" />
+              </v-list-item-content>
+
+              <v-list-item-action>
+                <v-btn class="mx-2" fab dark small color="error" @click="deleteAnnouncement(el)">
+                  <v-icon dark>mdi-delete</v-icon>
+                </v-btn>
+              </v-list-item-action>
+            </v-list-item>
+          </template>
         </EditableAnnouncement>
       </v-list>
 
@@ -49,7 +58,7 @@ export default {
         el => el.exists && { ...el.data(), id: el.id }
       );
     },
-    save(idx, { title, content }) {
+    update(idx, { title, content }) {
       const { id } = this.announcements[idx];
       this.announcements[idx] = {
         id,
@@ -63,6 +72,11 @@ export default {
         title,
         content,
       });
+    },
+    deleteAnnouncement({ id }) {
+      if (confirm(this.$t('deletePrompt', { name: this.$t('announcement') }))) {
+        this.$announcements.doc(id).delete();
+      }
     },
   },
   created() {
