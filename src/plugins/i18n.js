@@ -21,7 +21,10 @@ const messages = {
     titleWord: 'Title',
     settings: 'Settings',
     save: 'Save',
+    saved: 'Saved',
     close: 'Close',
+    addAnnouncement: 'Add',
+    tooShort: 'The text is too short. Minimal length is {minVal}',
   },
   'pl-PL': {
     title: 'Ogłoszenia',
@@ -40,7 +43,10 @@ const messages = {
     titleWord: 'Tytuł',
     settings: 'Ustawienia',
     save: 'Zapisz',
+    saved: 'Zapisano',
     close: 'Zamknij',
+    addAnnouncement: 'Nowe ogłoszenie',
+    tooShort: 'Tekst jest za krótki. Minimalna długość to {minVal}',
   },
 };
 

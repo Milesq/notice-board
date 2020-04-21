@@ -19,8 +19,9 @@
       <v-container class="py-5 px-sm-10">
         <v-row>
           <v-col cols="12" sm="10" class="mx-auto">
-            <v-form>
+            <v-form ref="form">
               <v-text-field
+                :rules="[title => title.length >= 4 || $t('tooShort', { minVal: 4 })]"
                 v-model="title"
                 style="max-width: 30%;"
                 :label="$t('titleWord')"
@@ -57,12 +58,14 @@ export default {
   },
   methods: {
     save() {
-      this.$emit('save', {
-        title: this.title,
-        content: this.content,
-      });
+      if (this.$refs.form.validate()) {
+        this.$emit('save', {
+          title: this.title,
+          content: this.content,
+        });
 
-      this.dialog = false;
+        this.dialog = false;
+      }
     },
     propsToData() {
       this.title = this.value.title;

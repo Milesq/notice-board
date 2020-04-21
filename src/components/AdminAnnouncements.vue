@@ -1,6 +1,14 @@
 <template>
   <v-card>
-    <v-card-title>{{ $t('manageAnnouncements') }}</v-card-title>
+    <v-card-title>
+      <span>{{ $t('manageAnnouncements') }}</span>
+
+      <v-spacer />
+
+      <EditableAnnouncement @save="createNew">
+        <v-btn color="primary">{{ $t('addAnnouncement') }}</v-btn>
+      </EditableAnnouncement>
+    </v-card-title>
     <v-card-text>
       <v-list subheader three-line v-if="announcements.length">
         <EditableAnnouncement
@@ -30,7 +38,7 @@
       <v-list v-else>
         <v-skeleton-loader
           loading
-          type="list-item"
+          type="list-item-two-line"
           v-for="(el, i) in Array(4).fill({ name: '' })"
           :key="i"
         />
@@ -38,7 +46,7 @@
     </v-card-text>
 
     <v-snackbar left v-model="snackbarSaved">
-      {{ $t('save') }}
+      {{ $t('saved') }}
       <v-btn text @click="snackbarSaved = false">{{ $t('close') }}</v-btn>
     </v-snackbar>
   </v-card>
@@ -53,6 +61,16 @@ export default {
     snackbarSaved: false,
   }),
   methods: {
+    createNew(announcement) {
+      this.snackbarSaved = true;
+
+      const newDoc = this.$announcements.doc();
+      this.announcements.push({
+        id: newDoc.id,
+        ...announcement,
+      });
+      newDoc.set(announcement);
+    },
     async readData() {
       return (await this.$announcements.get()).docs.map(
         el => el.exists && { ...el.data(), id: el.id }
@@ -68,13 +86,13 @@ export default {
       this.snackbarSaved = true;
 
       this.$announcements.doc(id).update({
-        id,
         title,
         content,
       });
     },
     deleteAnnouncement({ id }) {
       if (confirm(this.$t('deletePrompt', { name: this.$t('announcement') }))) {
+        this.announcements = this.announcements.filter(item => item.id != id);
         this.$announcements.doc(id).delete();
       }
     },
