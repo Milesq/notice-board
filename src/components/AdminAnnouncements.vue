@@ -5,7 +5,8 @@
       <v-list subheader three-line v-if="announcements.length">
         <EditableAnnouncement
           v-for="(el, idx) in announcements"
-          v-model="announcements[idx]"
+          :value="announcements[idx]"
+          @save="save(idx, $event)"
           :key="el.title + idx"
         >
           <v-list-item class="announcement" v-on:click.prevent>
@@ -26,6 +27,11 @@
         />
       </v-list>
     </v-card-text>
+
+    <v-snackbar left v-model="snackbarSaved">
+      {{ $t('save') }}
+      <v-btn text @click="snackbarSaved = false">{{ $t('close') }}</v-btn>
+    </v-snackbar>
   </v-card>
 </template>
 
@@ -35,12 +41,28 @@ import EditableAnnouncement from './EditableAnnouncement.vue';
 export default {
   data: () => ({
     announcements: [],
+    snackbarSaved: false,
   }),
   methods: {
     async readData() {
       return (await this.$announcements.get()).docs.map(
         el => el.exists && { ...el.data(), id: el.id }
       );
+    },
+    save(idx, { title, content }) {
+      const { id } = this.announcements[idx];
+      this.announcements[idx] = {
+        id,
+        title,
+        content,
+      };
+      this.snackbarSaved = true;
+
+      this.$announcements.doc(id).update({
+        id,
+        title,
+        content,
+      });
     },
   },
   created() {

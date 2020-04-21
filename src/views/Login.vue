@@ -23,9 +23,7 @@
 
     <v-snackbar v-model="snackbar">
       {{ $t('incorrectData') }}
-      <v-btn color="pink" text @click="closeSnackbar">
-        Close
-      </v-btn>
+      <v-btn color="pink" text @click="closeSnackbar">{{ $t('close') }}</v-btn>
     </v-snackbar>
   </v-container>
 </template>

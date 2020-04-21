@@ -26,7 +26,7 @@
                 :label="$t('titleWord')"
                 outlined
               />
-              <my-editor />
+              <v-text-field label="Content" v-model="content" />
             </v-form>
           </v-col>
         </v-row>
@@ -53,7 +53,12 @@ export default {
   },
   methods: {
     save() {
-      console.log(this.title, this.content);
+      this.$emit('save', {
+        title: this.title,
+        content: this.content,
+      });
+
+      this.dialog = false;
     },
     propsToData() {
       this.title = this.value.title;

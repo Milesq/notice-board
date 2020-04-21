@@ -20,6 +20,7 @@ const messages = {
     titleWord: 'Title',
     settings: 'Settings',
     save: 'Save',
+    close: 'Close',
   },
   'pl-PL': {
     title: 'Ogłoszenia',
@@ -37,6 +38,7 @@ const messages = {
     titleWord: 'Tytuł',
     settings: 'Ustawienia',
     save: 'Zapisz',
+    close: 'Zamknij',
   },
 };
 
