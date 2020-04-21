@@ -10,7 +10,6 @@ import { vuetify, i18n } from './plugins';
 
 window.firebase = firebase;
 
-// TODO: Db plugin should be applied after admin auth with google
 Vue.use(Db, { injectedCollections: ['users', 'announcements'] });
 
 Vue.config.productionTip = false;
