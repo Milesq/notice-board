@@ -18,6 +18,8 @@ const messages = {
     addUsers: 'Add users',
     manageAnnouncements: 'Manage announcements',
     titleWord: 'Title',
+    settings: 'Settings',
+    save: 'Save',
   },
   'pl-PL': {
     title: 'Ogłoszenia',
@@ -33,6 +35,8 @@ const messages = {
     addUsers: 'Dodawanie użytkowników',
     manageAnnouncements: 'Menadżer ogłoszeń',
     titleWord: 'Tytuł',
+    settings: 'Ustawienia',
+    save: 'Zapisz',
   },
 };
 

@@ -3,7 +3,7 @@
     <v-card-title>{{ $t('manageAnnouncements') }}</v-card-title>
     <v-card-text>
       <v-list subheader three-line v-if="announcements.length">
-        <EditAnnouncement
+        <EditableAnnouncement
           v-for="(el, idx) in announcements"
           v-model="announcements[idx]"
           :key="el.title + idx"
@@ -14,7 +14,7 @@
               <v-list-item-subtitle v-html="el.content" />
             </v-list-item-content>
           </v-list-item>
-        </EditAnnouncement>
+        </EditableAnnouncement>
       </v-list>
 
       <v-list v-else>
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import EditAnnouncement from './EditAnnouncement.vue';
+import EditableAnnouncement from './EditableAnnouncement.vue';
 
 export default {
   data: () => ({
@@ -49,7 +49,7 @@ export default {
     });
   },
   components: {
-    EditAnnouncement,
+    EditableAnnouncement,
   },
 };
 </script>

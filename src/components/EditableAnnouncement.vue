@@ -10,10 +10,10 @@
         <v-btn icon dark @click="dialog = false">
           <v-icon>mdi-close</v-icon>
         </v-btn>
-        <v-toolbar-title>Settings</v-toolbar-title>
+        <v-toolbar-title>{{ $t('settings') }}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items>
-          <v-btn dark text @click="dialog = false">Save</v-btn>
+          <v-btn dark text @click="save">{{ $t('save') }}</v-btn>
         </v-toolbar-items>
       </v-toolbar>
       <v-container class="py-5 px-sm-10">
@@ -22,27 +22,11 @@
             <v-form>
               <v-text-field
                 v-model="title"
-                style="max-width: 30%"
+                style="max-width: 30%;"
                 :label="$t('titleWord')"
                 outlined
               />
-              <editor
-                api-key="wfnyipsdja07y0q2ttktp68jkxvn5b8eqd0egr7yk65qdj0y"
-                v-model="content"
-                :init="{
-                  height: 500,
-                  menubar: true,
-                  plugins: [
-                    'advlist autolink lists link image charmap print preview anchor',
-                    'searchreplace visualblocks code fullscreen',
-                    'insertdatetime media table paste code help wordcount',
-                  ],
-                  toolbar:
-                    'undo redo | formatselect | bold italic backcolor | \
-                    alignleft aligncenter alignright alignjustify | \
-                    bullist numlist outdent indent | removeformat | help',
-                }"
-              />
+              <my-editor />
             </v-form>
           </v-col>
         </v-row>
@@ -52,8 +36,6 @@
 </template>
 
 <script>
-import Editor from '@tinymce/tinymce-vue';
-
 export default {
   data: () => ({
     dialog: false,
@@ -69,12 +51,24 @@ export default {
       }),
     },
   },
-  mounted() {
-    this.title = this.value.title;
-    this.content = this.value.content;
+  methods: {
+    save() {
+      console.log(this.title, this.content);
+    },
+    propsToData() {
+      this.title = this.value.title;
+      this.content = this.value.content;
+    },
   },
-  components: {
-    Editor,
+  mounted() {
+    this.propsToData();
+  },
+  watch: {
+    dialog(isOpen) {
+      if (!isOpen) {
+        this.propsToData();
+      }
+    },
   },
 };
 </script>
