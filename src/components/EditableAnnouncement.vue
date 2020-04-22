@@ -1,5 +1,12 @@
 <template>
-  <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+  <v-dialog
+    v-model="dialog"
+    @keydown.esc="cancel"
+    persistent
+    fullscreen
+    hide-overlay
+    transition="dialog-bottom-transition"
+  >
     <template #activator="{ on }">
       <div v-on="!passOpener ? on : {}">
         <slot :open="on" />
@@ -7,7 +14,7 @@
     </template>
     <v-card>
       <v-toolbar dark color="primary">
-        <v-btn icon dark @click="dialog = false">
+        <v-btn icon dark @click="cancel">
           <v-icon>mdi-close</v-icon>
         </v-btn>
         <v-toolbar-title>{{ $t('settings') }}</v-toolbar-title>
@@ -64,6 +71,13 @@ export default {
           content: this.content,
         });
 
+        this.dialog = false;
+      }
+    },
+    cancel() {
+      const notChanged = this.value.title === this.title && this.value.content === this.content;
+
+      if (notChanged || confirm(this.$t('areYouWantCancel'))) {
         this.dialog = false;
       }
     },

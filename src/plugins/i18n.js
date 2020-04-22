@@ -26,6 +26,7 @@ const messages = {
     addAnnouncement: 'Add',
     tooShort: 'The text is too short. Minimal length is {minVal}',
     noData: 'No data',
+    areYouWantCancel: "Do you want close tab? The changes won't saved",
   },
   'pl-PL': {
     title: 'Ogłoszenia',
@@ -49,6 +50,7 @@ const messages = {
     addAnnouncement: 'Nowe ogłoszenie',
     tooShort: 'Tekst jest za krótki. Minimalna długość to {minVal}',
     noData: 'Brak danych',
+    areYouWantCancel: 'Czy chcesz zamknąć kartę? Zmiany nie zostaną zapisane',
   },
 };
 
