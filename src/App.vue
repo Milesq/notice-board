@@ -5,6 +5,19 @@
       <v-btn text rounded to="/">{{ $t('title') }}</v-btn>
       <v-spacer />
 
+      <v-menu offset-y open-on-hover>
+        <template #activator="{ on }">
+          <v-btn v-on="on" text fab dark>
+            <v-icon>mdi-translate</v-icon>
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item v-for="(locale, idx) in locales" :key="idx" @click="changeLocale(locale)">
+            <v-list-item-title>{{ locale.toLocaleUpperCase() }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+
       <v-tooltip bottom>
         <template #activator="{ on }">
           <v-btn @click="changeTheme" v-on="on" text fab dark>
@@ -37,6 +50,10 @@ export default {
     loggedIn: false,
   }),
   methods: {
+    changeLocale(lang) {
+      this.$i18n.locale = lang;
+      localStorage.setItem('lang', lang);
+    },
     changeTheme() {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
       localStorage.setItem('darkTheme', this.$vuetify.theme.dark);
@@ -50,6 +67,11 @@ export default {
     window.firebase.auth().onAuthStateChanged(user => {
       this.loggedIn = !!user;
     });
+  },
+  computed: {
+    locales() {
+      return Object.keys(this.$i18n.messages);
+    },
   },
 };
 </script>

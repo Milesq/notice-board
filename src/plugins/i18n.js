@@ -4,7 +4,7 @@ import VueI18n from 'vue-i18n';
 Vue.use(VueI18n);
 
 const messages = {
-  'en-EN': {
+  en: {
     title: 'Announcement',
     announcement: 'announcement',
     nameAndSurname: 'Name',
@@ -29,7 +29,7 @@ const messages = {
     areYouWantCancel: "Do you want close tab? The changes won't saved",
     content: 'Content',
   },
-  'pl-PL': {
+  pl: {
     title: 'Ogłoszenia',
     announcement: 'ogłoszenie',
     nameAndSurname: 'Imie i nazwisko',
@@ -57,6 +57,6 @@ const messages = {
 };
 
 export default new VueI18n({
-  locale: navigator.language,
+  locale: localStorage.getItem('lang') || 'pl',
   messages,
 });
