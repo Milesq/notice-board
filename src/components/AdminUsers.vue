@@ -71,7 +71,7 @@ export default {
       searchText: '',
       newName: '',
       users: [],
-      nameRules,
+      nameRules: nameRules(),
       headers: [
         {
           text: this.$t('name'),

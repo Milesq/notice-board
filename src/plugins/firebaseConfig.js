@@ -4,6 +4,8 @@ const config = cfg.firebase;
 
 config.apiKey = process.env.VUE_APP_FIREBASE_API;
 
+export { config };
+
 export default {
   /**
    *
