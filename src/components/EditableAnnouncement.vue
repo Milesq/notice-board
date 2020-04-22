@@ -23,18 +23,18 @@
           <v-btn dark text @click="save">{{ $t('save') }}</v-btn>
         </v-toolbar-items>
       </v-toolbar>
-      <v-container class="py-5 px-sm-10">
+      <v-container class="py-5 px-0 px-md-10">
         <v-row>
           <v-col cols="12" sm="10" class="mx-auto">
             <v-form ref="form">
               <v-text-field
                 :rules="[title => title.length >= 4 || $t('tooShort', { minVal: 4 })]"
                 v-model="title"
-                style="max-width: 30%;"
+                :style="{ maxWidth: isMobile ? '100%' : '30%' }"
                 :label="$t('titleWord')"
                 outlined
               />
-              <v-text-field label="Content" v-model="content" />
+              <v-text-field :label="$t('content')" v-model="content" />
             </v-form>
           </v-col>
         </v-row>
@@ -88,6 +88,11 @@ export default {
   },
   mounted() {
     this.propsToData();
+  },
+  computed: {
+    isMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
   },
   watch: {
     dialog(isOpen) {

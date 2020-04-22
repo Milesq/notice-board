@@ -27,6 +27,7 @@ const messages = {
     tooShort: 'The text is too short. Minimal length is {minVal}',
     noData: 'No data',
     areYouWantCancel: "Do you want close tab? The changes won't saved",
+    content: 'Content',
   },
   'pl-PL': {
     title: 'Ogłoszenia',
@@ -51,6 +52,7 @@ const messages = {
     tooShort: 'Tekst jest za krótki. Minimalna długość to {minVal}',
     noData: 'Brak danych',
     areYouWantCancel: 'Czy chcesz zamknąć kartę? Zmiany nie zostaną zapisane',
+    content: 'Treść',
   },
 };
 
