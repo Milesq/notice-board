@@ -4,7 +4,11 @@
     <v-divider class="my-8" />
     <v-container width="90%">
       <v-row>
-        <v-col v-for="(item, i) in announcements" :key="`announcement-${i}`" :cols="cols()">
+        <v-col
+          v-for="(item, i) in announcements"
+          :key="`announcement-${i}`"
+          :cols="cols(item.title.length)"
+        >
           <v-hover v-slot="{ hover }">
             <v-slide-y-transition>
               <v-card min-height="150" :elevation="hover ? 8 : 2">
@@ -20,7 +24,6 @@
 </template>
 
 <script>
-const rand = max => Math.floor(Math.random() * (max + 1));
 // prettier-ignore
 const possibilities = [
   [3, 3, 3, 3],
@@ -31,9 +34,7 @@ const possibilities = [
   [12]
 ];
 
-const randomSystem = () => possibilities[rand(possibilities.length - 1)];
-
-let fillingSystem = randomSystem();
+let fillingSystem = [];
 
 export default {
   data: () => ({
@@ -45,9 +46,9 @@ export default {
     });
   },
   methods: {
-    cols() {
+    cols(x) {
       if (fillingSystem.length === 0) {
-        fillingSystem = randomSystem();
+        fillingSystem = possibilities[x % possibilities.length];
       }
 
       return fillingSystem.pop();
