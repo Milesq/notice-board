@@ -63,16 +63,15 @@
 </template>
 
 <script>
+import { nameRules } from '@/utils';
+
 export default {
   data() {
     return {
       searchText: '',
       newName: '',
       users: [],
-      nameRules: [
-        name => name.length == 0 || /^[a-zA-Z\s]+$/.test(name) || this.$t('nameErrors[0]'),
-        name => name.length == 0 || /.+\s.+/.test(name) || this.$t('nameErrors[1]'),
-      ],
+      nameRules,
       headers: [
         {
           text: this.$t('name'),

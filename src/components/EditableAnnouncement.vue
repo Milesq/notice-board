@@ -35,6 +35,7 @@
                 outlined
               />
               <v-text-field :label="$t('content')" v-model="content" />
+              <editor :api-key="key" :init="editorOptions" />
             </v-form>
           </v-col>
         </v-row>
@@ -44,11 +45,31 @@
 </template>
 
 <script>
+import Editor from '@tinymce/tinymce-vue';
+
+const key = 'wfnyipsdja07y0q2ttktp68jkxvn5b8eqd0egr7yk65qdj0y';
+
+const editorOptions = {
+  height: 500,
+  menubar: false,
+  plugins: [
+    'advlist autolink lists link image charmap print preview anchor',
+    'searchreplace visualblocks code fullscreen',
+    'insertdatetime media table paste code help wordcount',
+  ],
+  toolbar:
+    'undo redo | formatselect | bold italic backcolor | \
+           alignleft aligncenter alignright alignjustify | \
+           bullist numlist outdent indent | removeformat | help',
+};
+
 export default {
   data: () => ({
     dialog: false,
     title: '',
     content: '',
+    editorOptions,
+    key,
   }),
   props: {
     passOpener: {
@@ -66,12 +87,13 @@ export default {
   methods: {
     save() {
       if (this.$refs.form.validate()) {
-        this.$emit('save', {
-          title: this.title,
-          content: this.content,
-        });
+        console.log(this.content);
+        // this.$emit('save', {
+        //   title: this.title,
+        //   content: this.content,
+        // });
 
-        this.dialog = false;
+        // this.dialog = false;
       }
     },
     cancel() {
@@ -100,6 +122,9 @@ export default {
         this.propsToData();
       }
     },
+  },
+  components: {
+    'tiny-editor': Editor,
   },
 };
 </script>

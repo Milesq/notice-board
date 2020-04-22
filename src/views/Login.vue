@@ -30,6 +30,7 @@
 
 <script>
 import config from '../../config.json';
+import { nameRules } from '@/utils';
 
 export default {
   data() {
@@ -39,8 +40,8 @@ export default {
       loadingType: 'primary',
       snackbar: false,
       nameRules: [
-        name => /^[a-zA-Z\s]+$/.test(name) || this.$t('nameErrors[0]'),
-        name => /.+\s.+/.test(name) || this.$t('nameErrors[1]'),
+        val => val.length >= 4 || this.$t('tooShort', { minVal: 4 }),
+        ...nameRules.apply(this),
       ],
     };
   },
