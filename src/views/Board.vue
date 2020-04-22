@@ -12,18 +12,7 @@
             sm="6"
             md="4"
           >
-            <v-hover @click="openDetails(i)" class="pointer" v-slot="{ hover }">
-              <v-slide-y-transition>
-                <v-card
-                  min-height="150"
-                  :class="['grey', theme.isDark ? 'darken-3' : 'lighten-4']"
-                  :elevation="hover ? 4 : 1"
-                >
-                  <v-card-title>{{ item.title }}</v-card-title>
-                  <v-card-text v-html="item.content" />
-                </v-card>
-              </v-slide-y-transition>
-            </v-hover>
+            <ShowAnnouncement :title="item.title" :content="item.content" />
           </v-col>
         </v-row>
 
@@ -39,28 +28,21 @@
 </template>
 
 <script>
+import ShowAnnouncement from '../components/ShowAnnouncement.vue';
+
 export default {
   data: () => ({
     announcements: [],
     loaded: false,
   }),
-  inject: ['theme'],
   created() {
     this.$announcements.get().then(({ docs }) => {
       this.announcements = docs.map(item => ({ id: item.id, ...item.data() }));
       this.loaded = true;
     });
   },
-  methods: {
-    openDetails(i) {
-      console.log(i);
-    },
+  components: {
+    ShowAnnouncement,
   },
 };
 </script>
-
-<style scoped>
-.pointer {
-  cursor: pointer;
-}
-</style>
