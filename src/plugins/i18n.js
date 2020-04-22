@@ -25,6 +25,7 @@ const messages = {
     close: 'Close',
     addAnnouncement: 'Add',
     tooShort: 'The text is too short. Minimal length is {minVal}',
+    noData: 'No data',
   },
   'pl-PL': {
     title: 'Ogłoszenia',
@@ -47,6 +48,7 @@ const messages = {
     close: 'Zamknij',
     addAnnouncement: 'Nowe ogłoszenie',
     tooShort: 'Tekst jest za krótki. Minimalna długość to {minVal}',
+    noData: 'Brak danych',
   },
 };
 
