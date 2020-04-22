@@ -2,10 +2,9 @@ import Vue from 'vue';
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
-import 'firebase/storage';
 import App from './App.vue';
 import './registerServiceWorker';
-import { vuetify, i18n, firebase as firebaseConfig, router, utils } from './plugins';
+import { vuetify, i18n, router, firebaseConfig, utils } from './plugins';
 
 window.firebase = firebase;
 

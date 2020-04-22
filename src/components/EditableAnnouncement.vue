@@ -35,7 +35,7 @@
                 outlined
               />
               <v-text-field :label="$t('content')" v-model="content" />
-              <editor :api-key="key" :init="editorOptions" />
+              <!-- <editor :api-key="key" :init="editorOptions" /> -->
             </v-form>
           </v-col>
         </v-row>
@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import 'firebase/storage';
 import Editor from '@tinymce/tinymce-vue';
 
 const key = 'wfnyipsdja07y0q2ttktp68jkxvn5b8eqd0egr7yk65qdj0y';
@@ -87,13 +88,12 @@ export default {
   methods: {
     save() {
       if (this.$refs.form.validate()) {
-        console.log(this.content);
-        // this.$emit('save', {
-        //   title: this.title,
-        //   content: this.content,
-        // });
+        this.$emit('save', {
+          title: this.title,
+          content: this.content,
+        });
 
-        // this.dialog = false;
+        this.dialog = false;
       }
     },
     cancel() {

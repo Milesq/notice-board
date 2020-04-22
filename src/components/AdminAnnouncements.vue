@@ -21,7 +21,7 @@
               <v-list-item class="announcement" v-on:click.prevent>
                 <v-list-item-content v-on="open">
                   <v-list-item-title v-html="el.title" />
-                  <v-list-item-subtitle v-html="el.content" />
+                  <v-list-item-subtitle>{{ el.content | limit }}</v-list-item-subtitle>
                 </v-list-item-content>
 
                 <v-list-item-action>
