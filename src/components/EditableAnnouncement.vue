@@ -23,7 +23,7 @@
           <v-btn dark text @click="save">{{ $t('save') }}</v-btn>
         </v-toolbar-items>
       </v-toolbar>
-      <v-container class="py-5 px-0 px-md-10">
+      <v-container class="py-5 px-md-10">
         <v-row>
           <v-col cols="12" sm="10" class="mx-auto">
             <v-form ref="form">
@@ -34,8 +34,7 @@
                 :label="$t('titleWord')"
                 outlined
               />
-              <v-text-field :label="$t('content')" v-model="content" />
-              <!-- <editor :api-key="key" :init="editorOptions" /> -->
+              <tiny-editor v-model="content" :api-key="key" :init="editorOptions" />
             </v-form>
           </v-col>
         </v-row>
@@ -51,17 +50,17 @@ import Editor from '@tinymce/tinymce-vue';
 const key = 'wfnyipsdja07y0q2ttktp68jkxvn5b8eqd0egr7yk65qdj0y';
 
 const editorOptions = {
-  height: 500,
-  menubar: false,
+  height: 400,
+  menubar: !false,
   plugins: [
     'advlist autolink lists link image charmap print preview anchor',
-    'searchreplace visualblocks code fullscreen',
-    'insertdatetime media table paste code help wordcount',
+    'searchreplace visualblocks fullscreen',
+    'insertdatetime media table paste',
   ],
   toolbar:
-    'undo redo | formatselect | bold italic backcolor | \
+    'formatselect | bold italic backcolor | \
            alignleft aligncenter alignright alignjustify | \
-           bullist numlist outdent indent | removeformat | help',
+           bullist numlist | removeformat | help',
 };
 
 export default {
