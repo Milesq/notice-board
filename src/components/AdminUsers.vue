@@ -32,9 +32,7 @@
             :return-value.sync="props.item.name"
             @save="updateUser(props.item)"
           >
-            <span>
-              {{ props.item.name }}
-            </span>
+            <span>{{ props.item.name }}</span>
 
             <template #input>
               <v-text-field v-model="props.item.name" single-line />

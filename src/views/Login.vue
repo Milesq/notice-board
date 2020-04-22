@@ -8,8 +8,8 @@
             <div class="d-flex justify-center">
               <v-progress-circular indeterminate :color="loadingType" v-if="loading" />
             </div>
-            <v-form @submit.prevent="submit">
-              <v-text-field v-model="name" :label="$t('nameAndSurname')" />
+            <v-form ref="form" @submit.prevent="submit">
+              <v-text-field :rules="nameRules" v-model="name" :label="$t('nameAndSurname')" />
               <v-divider />
               <v-card-actions>
                 <v-spacer />
@@ -32,14 +32,22 @@
 import config from '../../config.json';
 
 export default {
-  data: () => ({
-    name: '',
-    loading: false,
-    loadingType: 'primary',
-    snackbar: false,
-  }),
+  data() {
+    return {
+      name: '',
+      loading: false,
+      loadingType: 'primary',
+      snackbar: false,
+      nameRules: [
+        name => /^[a-zA-Z\s]+$/.test(name) || this.$t('nameErrors[0]'),
+        name => /.+\s.+/.test(name) || this.$t('nameErrors[1]'),
+      ],
+    };
+  },
   methods: {
     async submit() {
+      if (!this.$refs.form.validate()) return;
+
       this.loading = true;
       const { token } = await fetch(`${config.firebaseAPI}/checkUserName`, {
         method: 'POST',
