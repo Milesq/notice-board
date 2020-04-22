@@ -2,38 +2,40 @@
   <v-card>
     <v-card-title>
       <span>{{ $t('manageAnnouncements') }}</span>
-
       <v-spacer />
-
       <EditableAnnouncement @save="createNew">
         <v-btn color="primary">{{ $t('addAnnouncement') }}</v-btn>
       </EditableAnnouncement>
     </v-card-title>
     <v-card-text>
-      <v-list subheader three-line v-if="announcements.length">
-        <EditableAnnouncement
-          pass-opener
-          v-for="(el, idx) in announcements"
-          :value="announcements[idx]"
-          @save="update(idx, $event)"
-          :key="el.title + idx"
-        >
-          <template v-slot="{ open }">
-            <v-list-item class="announcement" v-on:click.prevent>
-              <v-list-item-content v-on="open">
-                <v-list-item-title v-html="el.title" />
-                <v-list-item-subtitle v-html="el.content" />
-              </v-list-item-content>
+      <template v-if="loaded">
+        <v-list subheader three-line v-if="announcements.length">
+          <EditableAnnouncement
+            pass-opener
+            v-for="(el, idx) in announcements"
+            :value="announcements[idx]"
+            @save="update(idx, $event)"
+            :key="el.title + idx"
+          >
+            <template v-slot="{ open }">
+              <v-list-item class="announcement" v-on:click.prevent>
+                <v-list-item-content v-on="open">
+                  <v-list-item-title v-html="el.title" />
+                  <v-list-item-subtitle v-html="el.content" />
+                </v-list-item-content>
 
-              <v-list-item-action>
-                <v-btn class="mx-2" fab dark small color="error" @click="deleteAnnouncement(el)">
-                  <v-icon dark>mdi-delete</v-icon>
-                </v-btn>
-              </v-list-item-action>
-            </v-list-item>
-          </template>
-        </EditableAnnouncement>
-      </v-list>
+                <v-list-item-action>
+                  <v-btn class="mx-2" fab dark small color="error" @click="deleteAnnouncement(el)">
+                    <v-icon dark>mdi-delete</v-icon>
+                  </v-btn>
+                </v-list-item-action>
+              </v-list-item>
+            </template>
+          </EditableAnnouncement>
+        </v-list>
+
+        <span v-else>{{ $t('noData') }}</span>
+      </template>
 
       <v-list v-else>
         <v-skeleton-loader
@@ -59,6 +61,7 @@ export default {
   data: () => ({
     announcements: [],
     snackbarSaved: false,
+    loaded: false,
   }),
   methods: {
     createNew(announcement) {
@@ -99,6 +102,7 @@ export default {
   },
   created() {
     this.readData().then(announcements => {
+      this.loaded = true;
       this.announcements = announcements;
     });
   },
