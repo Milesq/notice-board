@@ -1,5 +1,5 @@
 <template>
-  <v-dialog max-width="45%" v-model="dialog" :fullscreen="isMobile" :hide-overlay="isMobile">
+  <v-dialog max-width="70%" v-model="dialog" :fullscreen="isMobile" :hide-overlay="isMobile">
     <template #activator="{ on }">
       <v-hover class="pointer" v-slot="{ hover }">
         <v-slide-y-transition>
@@ -18,7 +18,7 @@
 
     <v-card>
       <v-card-title
-        :class="['headline grey', theme.isDark ? 'darken-3' : 'lighten-2']"
+        :class="['headline grey d-flex justify-center', theme.isDark ? 'darken-3' : 'lighten-2']"
         primary-title
         v-text="title"
         v-if="!isMobile"
@@ -31,7 +31,7 @@
         <v-toolbar-title v-text="title" />
       </v-toolbar>
 
-      <v-card-text class="pt-4" v-html="content" />
+      <v-card-text style="min-height: 40vh" class="pt-4" v-html="content" />
 
       <template v-if="!isMobile">
         <v-divider />
