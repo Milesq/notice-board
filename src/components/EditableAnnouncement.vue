@@ -64,13 +64,9 @@ const editorOptions = {
 };
 
 export default {
-  data: () => ({
-    dialog: false,
-    title: '',
-    content: '',
-    editorOptions,
-    key,
-  }),
+  components: {
+    'tiny-editor': Editor,
+  },
   props: {
     passOpener: {
       type: Boolean,
@@ -83,6 +79,28 @@ export default {
         content: '',
       }),
     },
+  },
+  data: () => ({
+    dialog: false,
+    title: '',
+    content: '',
+    editorOptions,
+    key,
+  }),
+  computed: {
+    isMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
+  },
+  watch: {
+    dialog(isOpen) {
+      if (!isOpen) {
+        this.propsToData();
+      }
+    },
+  },
+  mounted() {
+    this.propsToData();
   },
   methods: {
     save() {
@@ -106,24 +124,6 @@ export default {
       this.title = this.value.title;
       this.content = this.value.content;
     },
-  },
-  mounted() {
-    this.propsToData();
-  },
-  computed: {
-    isMobile() {
-      return this.$vuetify.breakpoint.smAndDown;
-    },
-  },
-  watch: {
-    dialog(isOpen) {
-      if (!isOpen) {
-        this.propsToData();
-      }
-    },
-  },
-  components: {
-    'tiny-editor': Editor,
   },
 };
 </script>

@@ -10,6 +10,9 @@ import config from '../../config.json';
 
 export default {
   name: 'AdminLogin',
+  components: {
+    GoogleSingIn,
+  },
   methods: {
     login() {
       const provider = new window.firebase.auth.GoogleAuthProvider();
@@ -27,9 +30,6 @@ export default {
           this.$router.push('/admin');
         });
     },
-  },
-  components: {
-    GoogleSingIn,
   },
 };
 </script>

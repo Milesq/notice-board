@@ -49,6 +49,16 @@ export default {
   data: () => ({
     loggedIn: false,
   }),
+  computed: {
+    locales() {
+      return Object.keys(this.$i18n.messages);
+    },
+  },
+  created() {
+    window.firebase.auth().onAuthStateChanged(user => {
+      this.loggedIn = !!user;
+    });
+  },
   methods: {
     changeLocale(lang) {
       this.$i18n.locale = lang;
@@ -61,16 +71,6 @@ export default {
     logout() {
       window.firebase.auth().signOut();
       location.reload();
-    },
-  },
-  created() {
-    window.firebase.auth().onAuthStateChanged(user => {
-      this.loggedIn = !!user;
-    });
-  },
-  computed: {
-    locales() {
-      return Object.keys(this.$i18n.messages);
     },
   },
 };

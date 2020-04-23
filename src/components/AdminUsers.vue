@@ -84,6 +84,9 @@ export default {
       ],
     };
   },
+  async created() {
+    this.users = await this.readUsers();
+  },
   methods: {
     createUser() {
       if (!this.$refs.form.validate()) return;
@@ -113,9 +116,6 @@ export default {
         this.$users.doc(id).delete();
       }
     },
-  },
-  async created() {
-    this.users = await this.readUsers();
   },
 };
 </script>

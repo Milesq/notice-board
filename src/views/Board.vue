@@ -31,6 +31,9 @@
 import ShowAnnouncement from '../components/ShowAnnouncement.vue';
 
 export default {
+  components: {
+    ShowAnnouncement,
+  },
   data: () => ({
     announcements: [],
     loaded: false,
@@ -40,9 +43,6 @@ export default {
       this.announcements = docs.map(item => ({ id: item.id, ...item.data() }));
       this.loaded = true;
     });
-  },
-  components: {
-    ShowAnnouncement,
   },
 };
 </script>

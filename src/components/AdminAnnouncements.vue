@@ -58,11 +58,20 @@
 import EditableAnnouncement from './EditableAnnouncement.vue';
 
 export default {
+  components: {
+    EditableAnnouncement,
+  },
   data: () => ({
     announcements: [],
     snackbarSaved: false,
     loaded: false,
   }),
+  created() {
+    this.readData().then(announcements => {
+      this.loaded = true;
+      this.announcements = announcements;
+    });
+  },
   methods: {
     createNew(announcement) {
       this.snackbarSaved = true;
@@ -99,15 +108,6 @@ export default {
         this.$announcements.doc(id).delete();
       }
     },
-  },
-  created() {
-    this.readData().then(announcements => {
-      this.loaded = true;
-      this.announcements = announcements;
-    });
-  },
-  components: {
-    EditableAnnouncement,
   },
 };
 </script>

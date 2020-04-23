@@ -45,6 +45,14 @@ export default {
       ],
     };
   },
+  watch: {
+    snackbar(newVal) {
+      if (!newVal) {
+        this.loading = false;
+        this.loadingType = 'primary';
+      }
+    },
+  },
   methods: {
     async submit() {
       if (!this.$refs.form.validate()) return;
@@ -67,14 +75,6 @@ export default {
     },
     closeSnackbar() {
       this.snackbar = false;
-    },
-  },
-  watch: {
-    snackbar(newVal) {
-      if (!newVal) {
-        this.loading = false;
-        this.loadingType = 'primary';
-      }
     },
   },
 };
