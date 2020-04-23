@@ -34,7 +34,7 @@
                 :label="$t('titleWord')"
                 outlined
               />
-              <tiny-editor v-model="content" :api-key="key" :init="editorOptions" />
+              <my-editor />
             </v-form>
           </v-col>
         </v-row>
@@ -45,27 +45,11 @@
 
 <script>
 import 'firebase/storage';
-import Editor from '@tinymce/tinymce-vue';
-
-const key = 'wfnyipsdja07y0q2ttktp68jkxvn5b8eqd0egr7yk65qdj0y';
-
-const editorOptions = {
-  height: 400,
-  menubar: !false,
-  plugins: [
-    'advlist autolink lists link image charmap print preview anchor',
-    'searchreplace visualblocks fullscreen',
-    'insertdatetime media table paste',
-  ],
-  toolbar:
-    'formatselect | bold italic backcolor | \
-           alignleft aligncenter alignright alignjustify | \
-           bullist numlist | removeformat | help',
-};
+import MyEditor from './MyEditor';
 
 export default {
   components: {
-    'tiny-editor': Editor,
+    MyEditor,
   },
   props: {
     passOpener: {
@@ -84,8 +68,6 @@ export default {
     dialog: false,
     title: '',
     content: '',
-    editorOptions,
-    key,
   }),
   computed: {
     isMobile() {
