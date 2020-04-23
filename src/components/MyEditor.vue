@@ -8,7 +8,7 @@
 
 <script>
 import Editor from '@tinymce/tinymce-vue';
-import { pdfTinyMceButton, imageTinyMceButton } from '@/utils';
+import { pdf, image } from '../utils';
 
 const key = 'wfnyipsdja07y0q2ttktp68jkxvn5b8eqd0egr7yk65qdj0y';
 
@@ -25,8 +25,8 @@ const editorOptions = {
            alignleft aligncenter alignright alignjustify | \
            bullist numlist | removeformat | img | pdf | help',
   setup(editor) {
-    editor.ui.registry.addButton('pdf', pdfTinyMceButton(editor, 'file-input'));
-    editor.ui.registry.addButton('img', imageTinyMceButton(editor, 'file-input'));
+    editor.ui.registry.addButton('pdf', pdf(editor, 'file-input'));
+    editor.ui.registry.addButton('img', image(editor, 'file-input'));
   },
 };
 
