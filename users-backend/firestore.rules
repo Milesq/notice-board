@@ -2,7 +2,7 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
   	function isAdmin(email) {
-    	return email == "wmilosz88@gmail.com";
+    	return email == ["wmilosz88@gmail.com", "ecofirma.kmiec@gmail.com"];
     }
 
     match /{document=**} {

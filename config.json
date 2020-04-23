@@ -8,6 +8,6 @@
     "appId": "1:305225525597:web:434ee2e0f5e8b5b6fca0b4",
     "measurementId": "G-8R4SBW6S2K"
   },
-  "admins": ["wmilosz88@gmail.com"],
+  "admins": ["wmilosz88@gmail.com", "ecofirma.kmiec@gmail.com"],
   "firebaseAPI": "https://us-central1-tests-d8957.cloudfunctions.net"
 }
