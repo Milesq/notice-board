@@ -1,5 +1,6 @@
 import nameRules from './nameRules';
-import PdfTinyMceButton from './PdfTinyMceButton';
-import ImageTinyMceButton from './ImageTinyMceButton';
+import tinyMceButton from './tinyMceButton';
+import pdfTinyMceButton from './pdfTinyMceButton';
+import imageTinyMceButton from './imageTinyMceButton';
 
-export { nameRules, PdfTinyMceButton, ImageTinyMceButton };
+export { nameRules, pdfTinyMceButton, imageTinyMceButton };

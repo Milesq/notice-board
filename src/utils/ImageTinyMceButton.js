@@ -1,6 +1,3 @@
-export default editor => ({
-  text: 'Image',
-  onAction() {
-    editor.insertContent('&nbsp;<img src="https://picsum.photos/200" />&nbsp;');
-  },
-});
+import tinyMceButton from './tinyMceButton';
+
+export default tinyMceButton('Image', url => `&nbsp;<img src="${url}" />&nbsp;`);

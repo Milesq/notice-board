@@ -34,7 +34,7 @@
                 :label="$t('titleWord')"
                 outlined
               />
-              <my-editor />
+              <my-editor v-model="content" />
             </v-form>
           </v-col>
         </v-row>
