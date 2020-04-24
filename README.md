@@ -1,6 +1,6 @@
 # Announcement
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/620fbc32-ad88-423f-a5a5-d514d02e6b40/deploy-status)](https://app.netlify.com/sites/vigilant-leakey-473e5e/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/a03f18fd-b75a-4182-8206-9d2a7cca3a18/deploy-status)](https://app.netlify.com/sites/lucid-johnson-b23f0a/deploys)
 
 Synchronized with firebase auth and firestore, announcements system with CRUD panel system.
 
