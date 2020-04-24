@@ -75,7 +75,7 @@ export default {
       nameRules: nameRules(),
       headers: [
         {
-          text: this.$t('name'),
+          text: this?.$t('name') || 'error',
           align: 'start',
           value: 'name',
         },
