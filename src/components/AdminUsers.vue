@@ -5,7 +5,8 @@
       <v-form ref="form" @submit.prevent="createUser" class="d-flex align-center mb-1">
         <v-text-field :rules="nameRules" v-model="newName" :label="$t('nameAndSurname')" />
         <v-btn type="submit" class="ma-2" tile outlined color="primary">
-          <v-icon left>mdi-check</v-icon>Save
+          <v-icon left>mdi-check</v-icon>
+          {{ $t('save') }}
         </v-btn>
       </v-form>
 
