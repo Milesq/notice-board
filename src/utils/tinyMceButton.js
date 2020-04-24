@@ -28,7 +28,4 @@ const tinyMceButton = (text, createHTMLElement) => (editor, inputID) => ({
 const img = tinyMceButton('Image', url => `&nbsp;<img src="${url}" />&nbsp;`);
 const pdf = tinyMceButton('PDF', url => `<embed src="${url}" height="375">`);
 
-export default {
-  img,
-  pdf,
-};
+export { img, pdf };

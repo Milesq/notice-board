@@ -1,4 +1,4 @@
 import nameRules from './nameRules';
-import { pdf, image } from './tinyMceButton';
+import { pdf, img } from './tinyMceButton';
 
-export { nameRules, pdf, image };
+export { nameRules, pdf, img };

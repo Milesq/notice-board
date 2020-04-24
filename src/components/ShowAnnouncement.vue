@@ -31,7 +31,7 @@
         <v-toolbar-title v-text="title" />
       </v-toolbar>
 
-      <v-card-text style="min-height: 40vh" class="pt-4" v-html="content" />
+      <v-card-text style="min-height: 40vh;" class="pt-4" v-html="content" />
 
       <template v-if="!isMobile">
         <v-divider />
