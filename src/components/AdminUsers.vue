@@ -72,7 +72,7 @@ export default {
       searchText: '',
       newName: '',
       users: [],
-      nameRules: nameRules(),
+      nameRules: nameRules.apply(this),
       headers: [
         {
           text: this?.$t('name') || 'error',
