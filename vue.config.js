@@ -17,5 +17,9 @@ module.exports = {
   pwa: {
     name: 'Announcements',
     themeColor,
+    msTileColor: '#DC5252',
+    manifestOptions: {
+      background_color: '#609FDB',
+    },
   },
 };
