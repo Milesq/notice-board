@@ -31,7 +31,10 @@
         <v-toolbar-title v-text="title" />
       </v-toolbar>
 
-      <v-card-text style="min-height: 40vh;" class="pt-4" v-html="content" />
+      <v-card-text style="min-height: 40vh;" class="pt-4">
+        <span v-html="contentWithPdf" />
+        <pdf v-for="(pdf, i) in pdfFiles" :src="pdf" :key="`pdf-${i}`" />
+      </v-card-text>
 
       <template v-if="!isMobile">
         <v-divider />
@@ -46,8 +49,14 @@
 </template>
 
 <script>
+import pdf from 'vue-pdf';
+const parser = new DOMParser();
+
 export default {
   inject: ['theme'],
+  components: {
+    pdf,
+  },
   props: {
     title: {
       type: String,
@@ -60,10 +69,20 @@ export default {
   },
   data: () => ({
     dialog: false,
+    pdfFiles: [],
   }),
   computed: {
     isMobile() {
       return this.$vuetify.breakpoint.xsOnly;
+    },
+    contentWithPdf() {
+      const { body } = parser.parseFromString(this.content, 'text/html');
+      body.querySelectorAll('embed').forEach(el => {
+        this.pdfFiles.push(el.getAttribute('src'));
+        el.outerHTML = '';
+      });
+
+      return body.innerHTML;
     },
   },
 };
