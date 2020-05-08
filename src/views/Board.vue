@@ -39,10 +39,21 @@ export default {
     loaded: false,
   }),
   created() {
-    this.$announcements.get().then(({ docs }) => {
-      this.announcements = docs.map(item => ({ id: item.id, ...item.data() }));
-      this.loaded = true;
-    });
+    this.loadAnnouncements();
+  },
+  methods: {
+    loadAnnouncements() {
+      this.$announcements
+        .get()
+        .then(({ docs }) => {
+          this.announcements = docs.map(item => ({ id: item.id, ...item.data() }));
+          this.loaded = true;
+        })
+        .catch(err => {
+          console.warn('Cannot download data', err);
+          setTimeout(this.loadAnnouncements, 300);
+        });
+    },
   },
 };
 </script>
