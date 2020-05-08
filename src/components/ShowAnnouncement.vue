@@ -32,8 +32,8 @@
       </v-toolbar>
 
       <v-card-text style="min-height: 40vh;" class="pt-4">
-        <span v-html="contentWithPdf" />
-        <pdf v-for="(pdf, i) in pdfFiles" :src="pdf" :key="`pdf-${i}`" />
+        <p v-html="contentWithPdf" />
+        <PdfLoader v-for="(pdf, i) in pdfFiles" :src="pdf" :key="`pdf-${i}`" />
       </v-card-text>
 
       <template v-if="!isMobile">
@@ -49,13 +49,13 @@
 </template>
 
 <script>
-import pdf from 'vue-pdf';
+import PdfLoader from './PdfLoader';
 const parser = new DOMParser();
 
 export default {
   inject: ['theme'],
   components: {
-    pdf,
+    PdfLoader,
   },
   props: {
     title: {
