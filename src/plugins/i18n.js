@@ -5,7 +5,7 @@ Vue.use(VueI18n);
 
 const messages = {
   en: {
-    title: 'Announcement',
+    title: 'Notice board',
     announcement: 'announcement',
     nameAndSurname: 'Name',
     typeName: 'Type name and surname',
@@ -29,7 +29,7 @@ const messages = {
     areYouWantCancel: "Do you want close tab? The changes won't saved",
   },
   pl: {
-    title: 'Ogłoszenia',
+    title: 'Tablica ogłoszeń',
     announcement: 'ogłoszenie',
     nameAndSurname: 'Imie i nazwisko',
     typeName: 'Podaj imię i nazwisko',
