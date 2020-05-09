@@ -9,7 +9,9 @@
         color="primary"
       />
     </div>
-    <pdf @loaded="loaded" v-bind="$attrs" />
+    <div v-if="pdf">
+      <pdf v-for="i in numPages" :key="i" :src="pdf" :page="i"></pdf>
+    </div>
   </div>
 </template>
 
@@ -20,13 +22,21 @@ export default {
   components: {
     pdf,
   },
+  props: {
+    src: {
+      type: String,
+      required: true,
+    },
+  },
   data: () => ({
     isContentLoaded: false,
+    numPages: 0,
+    pdf: null,
   }),
-  methods: {
-    loaded() {
-      this.isContentLoaded = true;
-    },
+  async mounted() {
+    this.pdf = pdf.createLoadingTask(this.src);
+    this.numPages = (await this.pdf.promise).numPages;
+    this.isContentLoaded = true;
   },
 };
 </script>
