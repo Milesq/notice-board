@@ -1,7 +1,13 @@
 <template>
   <span>
-    <v-progress-linear :value="progress" v-if="progress" ref="uploadProgressBar" />
-    <tiny-editor v-on="$listeners" v-bind="$attrs" :api-key="key" :init="editorOptions" />
+    <v-progress-linear indeterminate v-if="loader" />
+    <tiny-editor
+      v-on="$listeners"
+      v-bind="$attrs"
+      :api-key="key"
+      v-if="editorOptions"
+      :init="editorOptions"
+    />
     <input id="file-input" type="file" style="display: none;" />
   </span>
 </template>
@@ -12,32 +18,42 @@ import { pdf, img } from '../utils';
 
 const key = 'wfnyipsdja07y0q2ttktp68jkxvn5b8eqd0egr7yk65qdj0y';
 
-const editorOptions = {
-  height: 400,
-  menubar: false,
-  plugins: [
-    'advlist autolink lists link charmap print preview anchor',
-    'searchreplace visualblocks fullscreen',
-    'insertdatetime media table paste',
-  ],
-  toolbar:
-    'formatselect | bold italic backcolor forecolor | \
-           alignleft aligncenter alignright alignjustify | \
-           bullist numlist | removeformat | img | pdf | help',
-  setup(editor) {
-    editor.ui.registry.addButton('pdf', pdf(editor, 'file-input'));
-    editor.ui.registry.addButton('img', img(editor, 'file-input'));
-  },
-};
-
 export default {
   components: {
     'tiny-editor': Editor,
   },
   data: () => ({
-    editorOptions,
     key,
-    progress: 0,
+    loader: false,
+    editorOptions: null,
   }),
+  mounted: function() {
+    const loader = {
+      start: () => {
+        this.loader = true;
+      },
+      stop: () => {
+        this.loader = false;
+      },
+    };
+
+    this.editorOptions = {
+      height: 400,
+      menubar: false,
+      plugins: [
+        'advlist autolink lists link charmap print preview anchor',
+        'searchreplace visualblocks fullscreen',
+        'insertdatetime media table paste',
+      ],
+      toolbar:
+        'formatselect | bold italic backcolor forecolor | \
+               alignleft aligncenter alignright alignjustify | \
+               bullist numlist | removeformat | img | pdf | help',
+      setup(editor) {
+        editor.ui.registry.addButton('pdf', pdf(editor, 'file-input', loader.start, loader.stop));
+        editor.ui.registry.addButton('img', img(editor, 'file-input', loader.start, loader.stop));
+      },
+    };
+  },
 };
 </script>
