@@ -9,7 +9,7 @@
             :class="['grey', theme.isDark ? 'darken-3' : 'lighten-4']"
             :elevation="hover ? 4 : 1"
           >
-            <v-card-title v-text="title" />
+            <v-card-title style="word-break: keep-all;" v-text="title" />
             <v-card-text>{{ content | limit }}</v-card-text>
           </v-card>
         </v-slide-y-transition>
