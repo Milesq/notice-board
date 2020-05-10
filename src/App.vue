@@ -9,7 +9,7 @@
             <v-icon>mdi-home</v-icon>
           </v-btn>
         </template>
-        <span>{{ $t('logout') }}</span>
+        <span>{{ $t('home') }}</span>
       </v-tooltip>
       <v-spacer />
 

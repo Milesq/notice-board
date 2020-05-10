@@ -5,6 +5,7 @@ Vue.use(VueI18n);
 
 const messages = {
   en: {
+    home: 'Home',
     title: 'Notice board',
     announcement: 'announcement',
     nameAndSurname: 'Name',
@@ -29,6 +30,7 @@ const messages = {
     areYouWantCancel: "Do you want close tab? The changes won't saved",
   },
   pl: {
+    home: 'Strona główna',
     title: 'Tablica ogłoszeń',
     announcement: 'ogłoszenie',
     nameAndSurname: 'Imie i nazwisko',
@@ -53,6 +55,7 @@ const messages = {
     areYouWantCancel: 'Czy chcesz zamknąć kartę? Zmiany nie zostaną zapisane',
   },
   Укр: {
+    home: 'домашня сторінка',
     title: 'Дошка оголошень',
     announcement: 'Оголошення',
     nameAndSurname: "Ім'я та прізвище",
