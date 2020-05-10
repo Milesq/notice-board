@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app-bar dark app color="primary">
-      <v-btn text rounded to="/" class="d-md-none">{{ $t('title') }}</v-btn>
+      <v-btn text rounded to="/" small class="d-md-none">{{ $t('title') }}</v-btn>
 
       <v-tooltip bottom>
         <template #activator="{ on }">
