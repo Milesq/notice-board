@@ -13,7 +13,7 @@
       </v-tooltip>
       <v-spacer />
 
-      <v-menu offset-y open-on-hover>
+      <v-menu offset-y :open-on-hover="$vuetify.breakpoint.mdAndUp">
         <template #activator="{ on }">
           <v-btn v-on="on" text fab dark>
             <v-icon>mdi-translate</v-icon>

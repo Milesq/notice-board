@@ -5,11 +5,11 @@
         <v-slide-y-transition>
           <v-card
             v-on="on"
-            min-height="150"
+            :min-height="tileMinHeight"
             :class="['grey', theme.isDark ? 'darken-3' : 'lighten-4']"
             :elevation="hover ? 4 : 1"
           >
-            <v-card-title style="word-break: keep-all;" v-text="title" />
+            <v-card-title :class="['title', { 'title--mobile': isMobile }]" v-text="title" />
             <v-card-text>{{ content | limit }}</v-card-text>
           </v-card>
         </v-slide-y-transition>
@@ -75,6 +75,9 @@ export default {
     isMobile() {
       return this.$vuetify.breakpoint.xsOnly;
     },
+    tileMinHeight() {
+      return this.isMobile ? 0 : 150;
+    },
     contentWithPdf() {
       const { body } = parser.parseFromString(this.content, 'text/html');
       body.querySelectorAll('embed').forEach(el => {
@@ -88,8 +91,16 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .pointer {
   cursor: pointer;
+}
+
+.title {
+  word-break: keep-all;
+
+  &--mobile {
+    font-weight: 400;
+  }
 }
 </style>
