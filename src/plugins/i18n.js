@@ -53,7 +53,7 @@ const messages = {
     areYouWantCancel: 'Czy chcesz zamknąć kartę? Zmiany nie zostaną zapisane',
   },
   Укр: {
-    title: 'Оголошення',
+    title: 'Дошка оголошень',
     announcement: 'Оголошення',
     nameAndSurname: "Ім'я та прізвище",
     typeName: "Вкажіть ім'я і прізвище",
