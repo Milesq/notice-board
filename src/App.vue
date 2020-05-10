@@ -1,8 +1,16 @@
 <template>
   <v-app>
     <v-app-bar dark app color="primary">
-      <!-- <v-toolbar-title> -->
-      <v-btn text rounded to="/">{{ $t('title') }}</v-btn>
+      <v-btn text rounded to="/" class="d-md-none">{{ $t('title') }}</v-btn>
+
+      <v-tooltip bottom>
+        <template #activator="{ on }">
+          <v-btn v-on="on" class="d-none d-md-inline-flex" text fab dark to="/">
+            <v-icon>mdi-home</v-icon>
+          </v-btn>
+        </template>
+        <span>{{ $t('logout') }}</span>
+      </v-tooltip>
       <v-spacer />
 
       <v-menu offset-y open-on-hover>
@@ -35,7 +43,6 @@
         </template>
         <span>{{ $t('logout') }}</span>
       </v-tooltip>
-      <!-- </v-toolbar-title> -->
     </v-app-bar>
 
     <v-content>

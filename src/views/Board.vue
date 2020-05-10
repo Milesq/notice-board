@@ -1,7 +1,7 @@
 <template>
   <div class="about pt-8 px-8">
-    <h1 class="d-flex justify-center">{{ $t('title') }}</h1>
-    <v-divider class="my-8" />
+    <h1 class="d-none d-md-flex justify-center">{{ $t('title') }}</h1>
+    <v-divider class="my-8 d-none d-md-block" />
     <v-container width="90%">
       <template v-if="loaded">
         <v-row v-if="announcements.length">
