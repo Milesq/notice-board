@@ -6,5 +6,5 @@
 typings/
 
 node_modules/
+
 credentials.json
-package-lock.json
