@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import config from '../../config.json';
+import config from '../../config.js';
 import { nameRules } from '@/utils';
 
 export default {

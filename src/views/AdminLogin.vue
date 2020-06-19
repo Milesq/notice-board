@@ -6,7 +6,7 @@
 
 <script>
 import GoogleSingIn from '@/components/GoogleSignIn.vue';
-import config from '../../config.json';
+import config from '../../config.js';
 
 export default {
   name: 'AdminLogin',

@@ -1,10 +1,4 @@
-import cfg from '../../config';
-
-const config = cfg.firebase;
-
-config.apiKey = process.env.VUE_APP_FIREBASE_API;
-
-export { config };
+import config from '../../config.js';
 
 export default {
   /**
@@ -13,7 +7,8 @@ export default {
    * @param {{ injectedCollections: Array<string> }} options
    */
   install(Vue, options) {
-    const app = window.firebase.initializeApp(config);
+    console.log(config);
+    const app = window.firebase.initializeApp(config.firebase);
 
     Vue.prototype.$db = app.firestore();
 
