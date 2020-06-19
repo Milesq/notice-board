@@ -7,7 +7,6 @@ export default {
    * @param {{ injectedCollections: Array<string> }} options
    */
   install(Vue, options) {
-    console.log(config);
     const app = window.firebase.initializeApp(config.firebase);
 
     Vue.prototype.$db = app.firestore();
