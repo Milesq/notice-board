@@ -16,7 +16,7 @@
 import Editor from '@tinymce/tinymce-vue';
 import { pdf, img } from '../utils';
 
-const key = 'wfnyipsdja07y0q2ttktp68jkxvn5b8eqd0egr7yk65qdj0y';
+const key = process.env.VUE_APP_tiny_mce_api_key;
 
 export default {
   components: {
