@@ -1,11 +1,12 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
+require('dotenv').config({ path: '../../.env.local' });
 
 const serviceAccount = require('../credentials.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://tests-d8957.firebaseio.com',
+  databaseURL: process.env.VUE_APP_databaseURL,
 });
 
 const db = admin.firestore();
