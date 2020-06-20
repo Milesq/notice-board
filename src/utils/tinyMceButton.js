@@ -1,3 +1,6 @@
+import urlify from './urlify';
+import randoms from './randoms';
+
 const tinyMceButton = (text, createHTMLElement) => (editor, inputID, onStart, onFinish) => ({
   text,
   onAction() {
@@ -7,8 +10,9 @@ const tinyMceButton = (text, createHTMLElement) => (editor, inputID, onStart, on
       onStart?.();
       const [file] = el.files;
       const storageRef = window.firebase.storage().ref();
+      const newFileName = urlify(file.name, false) + randoms(10).join('');
 
-      const ref = storageRef.child(file.name);
+      const ref = storageRef.child(newFileName);
       const uploadTask = ref.put(file);
 
       uploadTask.on('state_changed', snapshot => {
@@ -21,12 +25,18 @@ const tinyMceButton = (text, createHTMLElement) => (editor, inputID, onStart, on
       const res = await uploadTask;
       const url = await res.ref.getDownloadURL();
 
-      editor.insertContent(createHTMLElement(url));
+      editor.insertContent(createHTMLElement(url, newFileName));
     });
   },
 });
 
-const img = tinyMceButton('Image', url => `<img src="${url}" alt="" />`);
-const pdf = tinyMceButton('PDF', url => `<embed src="${url}" height="375">`);
+const img = tinyMceButton(
+  'Image',
+  (url, includedMedia) => `<img src="${url}" data-toremove="${includedMedia}" alt="" />`
+);
+const pdf = tinyMceButton(
+  'PDF',
+  (url, includedMedia) => `<embed src="${url}" data-toremove="${includedMedia}" height="375">`
+);
 
 export { img, pdf };
