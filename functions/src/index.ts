@@ -1,5 +1,6 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
+import matchName from './matchName';
 require('dotenv').config({ path: '../../.env.local' });
 
 const serviceAccount = require('../credentials.json');
@@ -39,24 +40,21 @@ export const checkUserName = functions.https.onRequest(async (request, response)
   }
 });
 
-function matchName(arr: string[], name: string): boolean {
-  const accentsIn = 'ęóąśłżźćń'.split('');
-  const accentsOut = 'eoaslzzcn'.split('');
-  const accents: { [letter: string]: string } = accentsIn.reduce(
-    (acc, el, i) => ({ ...acc, [el]: accentsOut[i] }),
-    {}
-  );
+export const deleteUnusedMedia = functions.firestore
+  .document('announcements/{content}')
+  .onDelete(data => {
+    const { content } = data.data();
+    console.log(content);
 
-  const normalize = (s: string) =>
-    s
-      .toLocaleLowerCase()
-      .split('')
-      .map(letter => accents[letter] ?? letter)
-      .join('')
-      .split(' ')
-      .sort((a, b) => a.localeCompare(b, 'en', { sensitivity: 'base' }))
-      .join('')
-      .replace(/[^a-z]/g, '');
+    // const parser = new DOMParser();
+    // const doc = parser.parseFromString(content, 'text/html');
+    // const storage = admin.storage();
+    // const mediaItems = [...doc.querySelectorAll('[data-toremove]')].map(item =>
+    //   item.getAttribute('data-toremove')
+    // );
 
-  return arr.map(user => normalize(user)).includes(normalize(name));
-}
+    // mediaItems.forEach(item => {
+    // const ref = storage.refFromURL(item.getAttribute('src'));
+    // ref.delete();
+    // });
+  });
