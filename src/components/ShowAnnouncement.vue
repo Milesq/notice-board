@@ -5,6 +5,7 @@
         <v-slide-y-transition>
           <v-card
             v-on="on"
+            @click="onOpen"
             :min-height="tileMinHeight"
             :class="['grey', theme.isDark ? 'darken-3' : 'lighten-4']"
             :elevation="hover ? 4 : 1"
@@ -127,6 +128,22 @@ export default {
       if (this.timestamp.updated) return dateToFormat(new Date(this.timestamp.updated));
     },
     /* eslint-enable vue/return-in-computed-property */
+  },
+  methods: {
+    onOpen() {
+      history.pushState(
+        {
+          notice: this.title,
+        },
+        this.title
+      );
+
+      window.addEventListener('popstate', this.stateChange);
+    },
+    stateChange() {
+      this.dialog = false;
+      window.removeEventListener('popstate', this.stateChange);
+    },
   },
 };
 </script>
