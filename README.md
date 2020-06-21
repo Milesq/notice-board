@@ -1,4 +1,4 @@
-# Announcement
+# Notice Board
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/a03f18fd-b75a-4182-8206-9d2a7cca3a18/deploy-status)](https://app.netlify.com/sites/lucid-johnson-b23f0a/deploys)
 

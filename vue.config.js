@@ -15,7 +15,7 @@ module.exports = {
   },
   transpileDependencies: ['vuetify'],
   pwa: {
-    name: 'Announcements',
+    name: 'Notice Board',
     themeColor,
     msTileColor: '#DC5252',
     manifestOptions: {
