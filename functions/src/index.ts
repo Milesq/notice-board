@@ -17,6 +17,7 @@ const uuidToken = () => admin.auth().createCustomToken('anonymous-account');
 export const checkUserName = functions.https.onRequest(async (request, response) => {
   try {
     const { name } = JSON.parse(request.body);
+    console.warn(`Try logged at ${new Date()} - ${name}`);
 
     const users = await Promise.all(
       (await db.collection('users').listDocuments()).map(async el => (await el.get()).data())
