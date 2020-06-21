@@ -11,6 +11,14 @@
           >
             <v-card-title :class="['title', { 'title--mobile': isMobile }]" v-text="title" />
             <v-card-text>{{ content | limit }}</v-card-text>
+            <v-card-subtitle>
+              <div class="text-caption text-right mb-n1" v-if="created_at">
+                {{ `${$t('created_at')}: ${created_at}` }}
+              </div>
+              <div class="text-caption text-right mb-n1" v-if="updated_at">
+                {{ `${$t('updated_at')}: ${updated_at}` }}
+              </div>
+            </v-card-subtitle>
           </v-card>
         </v-slide-y-transition>
       </v-hover>
@@ -52,6 +60,26 @@
 import PdfLoader from './PdfLoader';
 const parser = new DOMParser();
 
+function currentLang() {
+  let lang = localStorage.getItem('lang');
+
+  if (lang.toLocaleLowerCase() === 'укр') {
+    lang = 'ukr';
+  }
+
+  return lang ?? 'pl';
+}
+
+const dateFormatter = new Intl.DateTimeFormat(currentLang(), {
+  year: 'numeric',
+  month: 'short',
+  day: '2-digit',
+  hour: 'numeric',
+  minute: 'numeric',
+});
+
+const dateToFormat = date => dateFormatter.format(date);
+
 export default {
   inject: ['theme'],
   components: {
@@ -65,6 +93,10 @@ export default {
     content: {
       type: String,
       default: () => '',
+    },
+    timestamp: {
+      type: Object,
+      default: () => ({}),
     },
   },
   data: () => ({
@@ -87,6 +119,14 @@ export default {
 
       return body.innerHTML;
     },
+    /* eslint-disable vue/return-in-computed-property */
+    created_at() {
+      if (this.timestamp.created) return dateToFormat(new Date(this.timestamp.created));
+    },
+    updated_at() {
+      if (this.timestamp.updated) return dateToFormat(new Date(this.timestamp.updated));
+    },
+    /* eslint-enable vue/return-in-computed-property */
   },
 };
 </script>

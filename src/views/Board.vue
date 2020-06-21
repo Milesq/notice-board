@@ -12,7 +12,14 @@
             sm="6"
             md="4"
           >
-            <ShowAnnouncement :title="item.title" :content="item.content" />
+            <ShowAnnouncement
+              :title="item.title"
+              :content="item.content"
+              :timestamp="{
+                created: item.created_at,
+                updated: item.updated_at,
+              }"
+            />
           </v-col>
         </v-row>
 

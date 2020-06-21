@@ -28,6 +28,8 @@ const messages = {
     tooShort: 'The text is too short. Minimal length is {minVal}',
     noData: 'No data',
     areYouWantCancel: "Do you want close tab? The changes won't saved",
+    created_at: 'Created at',
+    updated_at: 'Updated at',
   },
   pl: {
     home: 'Strona główna',
@@ -53,6 +55,8 @@ const messages = {
     tooShort: 'Tekst jest za krótki. Minimalna długość to {minVal}',
     noData: 'Brak danych',
     areYouWantCancel: 'Czy chcesz zamknąć kartę? Zmiany nie zostaną zapisane',
+    created_at: 'Utworzono',
+    updated_at: 'Zmodyfikowano',
   },
   Укр: {
     home: 'домашня сторінка',
@@ -78,6 +82,8 @@ const messages = {
     tooShort: 'Текст занадто короткий. Мінімальна довжина {minVal}',
     noData: 'Немає даних',
     areYouWantCancel: 'Чи ви хочете закрити карту? Зміни не будуть збережені',
+    created_at: 'Створено в',
+    updated_at: 'Оновлено за адресою',
   },
 };
 
