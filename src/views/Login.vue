@@ -53,6 +53,11 @@ export default {
       }
     },
   },
+  created() {
+    if (window.firebase.auth().currentUser !== null) {
+      this.$router.push('/');
+    }
+  },
   methods: {
     async submit() {
       if (!this.$refs.form.validate()) return;
