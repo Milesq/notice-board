@@ -63,7 +63,7 @@ const parser = new DOMParser();
 function currentLang() {
   let lang = localStorage.getItem('lang');
 
-  if (lang.toLocaleLowerCase() === 'укр') {
+  if (lang?.toLocaleLowerCase() === 'укр') {
     lang = 'ukr';
   }
 
