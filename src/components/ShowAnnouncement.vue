@@ -133,7 +133,6 @@ export default {
     dialog(isOpen) {
       if (isOpen) {
         window.analytics.logEvent('open_notification', {
-          userName: localStorage.getItem('notice-board-user-name'),
           notice: this.title,
         });
       }

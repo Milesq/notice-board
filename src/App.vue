@@ -71,17 +71,13 @@ export default {
       this.$i18n.locale = lang;
       localStorage.setItem('lang', lang);
 
-      window.analytics.logEvent('change_locale', {
-        userName: localStorage.getItem('notice-board-user-name'),
-        lang,
-      });
+      window.analytics.logEvent('change_locale', { lang });
     },
     changeTheme() {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
       localStorage.setItem('darkTheme', this.$vuetify.theme.dark);
 
       window.analytics.logEvent('change_theme', {
-        userName: localStorage.getItem('notice-board-user-name'),
         newTheme: this.$vuetify.theme.dark ? 'dark' : 'light',
       });
     },
