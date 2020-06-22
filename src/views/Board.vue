@@ -47,12 +47,11 @@ export default {
   }),
   created() {
     this.loadAnnouncements();
-    window.firebase
-      .analytics()
-      .setUserId(
-        localStorage.getItem('notice-board-user-name') ||
-          (() => (console.log('anonyomus-error'), 'anonyomus-error'))()
-      );
+    window.analytics.setUserId(
+      localStorage.getItem('notice-board-user-name') ||
+        (() => (console.log('anonyomus-error'), 'anonyomus-error'))()
+    );
+    window.analytics.logEvent('open_board');
   },
   methods: {
     loadAnnouncements() {
