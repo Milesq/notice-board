@@ -51,7 +51,7 @@ export default {
       .analytics()
       .setUserId(
         localStorage.getItem('notice-board-user-name') ||
-          (() => console.log('anonyomus-error'), 'anonyomus-error')()
+          (() => (console.log('anonyomus-error'), 'anonyomus-error'))()
       );
   },
   methods: {
