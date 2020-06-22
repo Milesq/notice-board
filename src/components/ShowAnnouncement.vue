@@ -129,6 +129,16 @@ export default {
     },
     /* eslint-enable vue/return-in-computed-property */
   },
+  watch: {
+    dialog(isOpen) {
+      if (isOpen) {
+        window.analytics.logEvent('open_notification', {
+          userName: localStorage.getItem('notice-board-user-name'),
+          notice: this.title,
+        });
+      }
+    },
+  },
   methods: {
     onOpen() {
       history.pushState(
