@@ -74,6 +74,7 @@ export default {
         return;
       }
 
+      localStorage.setItem('notice-board-user-name', this.name);
       await window.firebase.auth().signInWithCustomToken(token);
       this.loading = false;
       this.$router.push('/');

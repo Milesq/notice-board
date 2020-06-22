@@ -47,6 +47,12 @@ export default {
   }),
   created() {
     this.loadAnnouncements();
+    window.firebase
+      .analytics()
+      .setUserId(
+        localStorage.getItem('notice-board-user-name') ||
+          (() => console.log('anonyomus-error'), 'anonyomus-error')()
+      );
   },
   methods: {
     loadAnnouncements() {
