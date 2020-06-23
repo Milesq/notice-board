@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Board from '@/views/Board.vue';
+// import Board from '@/views/Board.vue';
 import config from '../../config.js';
 
 Vue.use(VueRouter);
@@ -11,7 +11,7 @@ const router = new VueRouter({
     {
       path: '/',
       name: 'Home',
-      component: Board,
+      component: () => import(/* webpackChunkName: "adminLogin" */ '@/views/Board.vue'),
       meta: {
         authRequired: true,
       },
@@ -43,7 +43,7 @@ const router = new VueRouter({
 });
 
 function getUser() {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     window.firebase.auth().onAuthStateChanged(resolve);
   });
 }
