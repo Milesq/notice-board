@@ -20,6 +20,7 @@ module.exports = {
     msTileColor: '#DC5252',
     manifestOptions: {
       background_color: '#609FDB',
+      gcm_sender_id: process.env.VUE_APP_gcm_sender_id,
     },
     workboxOptions: {
       exclude: [/_redirects/],
