@@ -27,7 +27,7 @@ export default {
     loader: false,
     editorOptions: null,
   }),
-  mounted: function() {
+  mounted: function () {
     const loader = {
       start: () => {
         this.loader = true;

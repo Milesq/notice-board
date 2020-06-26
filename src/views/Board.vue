@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import 'firebase/messaging';
 import ShowAnnouncement from '../components/ShowAnnouncement.vue';
 
 export default {
@@ -52,6 +53,24 @@ export default {
         (() => (console.log('anonyomus-error'), 'anonyomus-error'))()
     );
     window.analytics.logEvent('open_board');
+  },
+  mounted() {
+    const messaging = window.firebase.messaging();
+
+    messaging.usePublicVapidKey(process.env.VUE_APP_cloud_messaging_vapid_key);
+
+    messaging
+      .requestPermission()
+      .then(() => {
+        console.log('Notification permission granted.');
+
+        messaging.getToken().then(token => {
+          console.log(token);
+        });
+      })
+      .catch(err => {
+        console.log('Unable to get permission to notify.', err);
+      });
   },
   methods: {
     loadAnnouncements() {

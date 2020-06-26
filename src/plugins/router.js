@@ -43,7 +43,7 @@ const router = new VueRouter({
 });
 
 function getUser() {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     window.firebase.auth().onAuthStateChanged(resolve);
   });
 }

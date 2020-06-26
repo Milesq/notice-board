@@ -13,9 +13,6 @@ module.exports = {
   },
 
   'example e2e test using a custom command': browser => {
-    browser
-      .openHomepage()
-      .assert.elementPresent('.hello')
-      .end();
+    browser.openHomepage().assert.elementPresent('.hello').end();
   },
 };
