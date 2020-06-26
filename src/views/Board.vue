@@ -31,12 +31,59 @@
         </v-col>
       </v-row>
     </v-container>
+
+    <v-bottom-sheet v-model="notificationPropose" inset>
+      <v-sheet class="text-center" height="200px">
+        <div class="py-6">{{ $t('notificationAsk') }}</div>
+
+        <v-btn class="mx-6" color="primary" @click="notificationAskAllow">{{
+          $t('notificationAllow')
+        }}</v-btn>
+        <v-btn class="mx-6" color="error" @click="notificationAskDeny">{{
+          $t('notificationDeny')
+        }}</v-btn>
+      </v-sheet>
+    </v-bottom-sheet>
   </div>
 </template>
 
 <script>
 import 'firebase/messaging';
 import ShowAnnouncement from '../components/ShowAnnouncement.vue';
+
+const secs = ms => ms * 1000;
+const minutes = s => 60 * secs(s);
+const hours = m => 60 * minutes(m);
+const days = h => 24 * hours(h);
+
+const now = () => new Date().getTime();
+
+function subscribeNewAnnounements() {
+  /**
+   * @param {string} token
+   */
+  function subscribibeToTopic(token) {
+    fetch(`${process.env.VUE_APP_firebaseAPI}/subscribeMe`, {
+      method: 'POST',
+      body: JSON.stringify({ token }),
+    });
+  }
+
+  const messaging = window.firebase.messaging();
+
+  messaging.usePublicVapidKey(process.env.VUE_APP_cloud_messaging_vapid_key);
+
+  const subscribibeToTopicWithToken = () => messaging.getToken().then(subscribibeToTopic);
+
+  messaging.onTokenRefresh(subscribibeToTopicWithToken);
+
+  messaging
+    .requestPermission()
+    .then(subscribibeToTopicWithToken)
+    .catch(err => {
+      console.warn('Unable to get permission to notify.', err);
+    });
+}
 
 export default {
   components: {
@@ -45,6 +92,7 @@ export default {
   data: () => ({
     announcements: [],
     loaded: false,
+    notificationPropose: false,
   }),
   created() {
     this.loadAnnouncements();
@@ -55,22 +103,10 @@ export default {
     window.analytics.logEvent('open_board');
   },
   mounted() {
-    const messaging = window.firebase.messaging();
+    const notificationNotGranted = Notification.permission === 'default';
+    const timeFromLastAsk = parseInt(localStorage.getItem('timeFromLastAsk')) || 0;
 
-    messaging.usePublicVapidKey(process.env.VUE_APP_cloud_messaging_vapid_key);
-
-    messaging
-      .requestPermission()
-      .then(() => {
-        console.log('Notification permission granted.');
-
-        messaging.getToken().then(token => {
-          console.log(token);
-        });
-      })
-      .catch(err => {
-        console.log('Unable to get permission to notify.', err);
-      });
+    if (notificationNotGranted && now() >= timeFromLastAsk + days(4)) this.askNotification();
   },
   methods: {
     loadAnnouncements() {
@@ -84,6 +120,17 @@ export default {
           console.warn('Cannot download data', err);
           setTimeout(this.loadAnnouncements, 300);
         });
+    },
+    askNotification() {
+      this.notificationPropose = true;
+    },
+    notificationAskAllow() {
+      this.notificationPropose = false;
+      setTimeout(subscribeNewAnnounements, 300);
+    },
+    notificationAskDeny() {
+      this.notificationPropose = false;
+      localStorage.setItem('timeFromLastAsk', now());
     },
   },
 };

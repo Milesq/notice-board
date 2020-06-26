@@ -30,6 +30,10 @@ const messages = {
     areYouWantCancel: "Do you want close tab? The changes won't saved",
     created_at: 'Created at',
     updated_at: 'Updated at',
+    notificationAsk:
+      'Hi! We can send you notifications when a new notification has come. What do you think?',
+    notificationAllow: 'Yeah!',
+    notificationDeny: 'Maybe Later',
   },
   pl: {
     home: 'Strona główna',
@@ -57,6 +61,10 @@ const messages = {
     areYouWantCancel: 'Czy chcesz zamknąć kartę? Zmiany nie zostaną zapisane',
     created_at: 'Utworzono',
     updated_at: 'Zmodyfikowano',
+    notificationAsk:
+      'Możemy ci wysyłać powiadomienia kiedy zostaną dodane nowe ogłoszenia. Co ty na to?',
+    notificationAllow: 'Jasne!',
+    notificationDeny: 'Może Potem',
   },
   Укр: {
     home: 'домашня сторінка',
@@ -84,6 +92,10 @@ const messages = {
     areYouWantCancel: 'Чи ви хочете закрити карту? Зміни не будуть збережені',
     created_at: 'Створено в',
     updated_at: 'Оновлено за адресою',
+    notificationAsk:
+      'Ми можемо надсилати вам повідомлення, коли будуть додані нові оголошення. Що ти на це?',
+    notificationAllow: 'Звичайно!',
+    notificationDeny: 'Може Бути, Потім',
   },
 };
 
