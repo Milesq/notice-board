@@ -1,13 +1,13 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import matchName from './matchName';
-require('dotenv').config({ path: '../../.env.local' });
+import * as env from './env';
 
 const serviceAccount = require('../credentials.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: process.env.VUE_APP_databaseURL,
+  databaseURL: env.databaseURL,
 });
 
 enum TOPICS {
@@ -61,6 +61,14 @@ export const subscribeMe = functions.https.onRequest(async (request, response) =
       err: 'Something went wrong',
     });
   }
+});
+
+export const getServerKey = functions.https.onRequest(async (request, response) => {
+  response.setHeader('Access-Control-Allow-Origin', '*');
+
+  response.send({
+    key: env.cloud_messaging_server_key,
+  });
 });
 
 export const deleteUnusedMedia = functions.firestore
