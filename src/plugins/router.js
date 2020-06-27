@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-// import Board from '@/views/Board.vue';
 import config from '../../config.js';
 
 Vue.use(VueRouter);
