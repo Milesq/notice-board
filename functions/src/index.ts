@@ -63,19 +63,6 @@ export const subscribeMe = functions.https.onRequest(async (request, response) =
   }
 });
 
-export const sendNotification = functions.firestore
-  .document('announcements/{content}')
-  .onCreate(snapshot => {
-    const { title } = snapshot.data();
-
-    msg.sendToTopic(TOPICS.NEW_ANNOUNCEMENT, {
-      notification: {
-        title: 'New announcement',
-        body: title,
-      },
-    });
-  });
-
 export const deleteUnusedMedia = functions.firestore
   .document('announcements/{content}')
   .onDelete(data => {
