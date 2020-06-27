@@ -8,3 +8,11 @@ Synchronized with firebase auth and firestore, announcements system with CRUD pa
 
 - Login by name
 - Admin login with google
+
+## Usage
+
+Before run fill config data in `functions/credentials.json` (like `credentials.example.json`).
+Credentials are equal to private key from admin sdk, you can download it from
+[this url](https://console.firebase.google.com/project/_/settings/serviceaccounts/adminsdk)
+
+Nextly you should fill `public/firebase-messaging-sw.js`. You can take data from firebase app console (they are called _Firebase SDK snippet_) and cloud _messaging_
