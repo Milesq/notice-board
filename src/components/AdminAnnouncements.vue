@@ -57,6 +57,24 @@
 <script>
 import EditableAnnouncement from './EditableAnnouncement.vue';
 
+async function sendNotification(notification) {
+  const { key } = await fetch(`${process.env.VUE_APP_firebaseAPI}/getServerKey`).then(r =>
+    r.json()
+  );
+
+  return fetch('https://fcm.googleapis.com/fcm/send', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${key}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      to: '/topics/newAnnouncement',
+      notification,
+    }),
+  });
+}
+
 export default {
   components: {
     EditableAnnouncement,
@@ -75,6 +93,11 @@ export default {
   methods: {
     createNew(announcement) {
       this.snackbarSaved = true;
+      sendNotification({
+        title: 'FCM Message',
+        body: 'This is an FCM Message',
+        icon: './img/icons/android-chrome-192x192.png',
+      });
 
       const newDoc = this.$announcements.doc();
       this.announcements.push({
