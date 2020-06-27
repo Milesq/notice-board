@@ -34,7 +34,7 @@
 
     <v-bottom-sheet v-model="notificationPropose" inset>
       <v-sheet class="text-center" height="200px">
-        <div class="py-6">{{ $t('notificationAsk') }}</div>
+        <div class="py-6 px-6 px-md-0">{{ $t('notificationAsk') }}</div>
 
         <v-btn class="mx-6" color="primary" @click="notificationAskAllow">{{
           $t('notificationAllow')
@@ -102,12 +102,12 @@ export default {
     );
     window.analytics.logEvent('open_board');
   },
-  // mounted() {
-  //   const notificationNotGranted = Notification.permission === 'default';
-  //   const timeFromLastAsk = parseInt(localStorage.getItem('timeFromLastAsk')) || 0;
+  mounted() {
+    const notificationNotGranted = Notification.permission === 'default';
+    const timeFromLastAsk = parseInt(localStorage.getItem('timeFromLastAsk')) || 0;
 
-  //   if (notificationNotGranted && now() >= timeFromLastAsk + days(4)) this.askNotification();
-  // },
+    if (notificationNotGranted && now() >= timeFromLastAsk + days(4)) this.askNotification();
+  },
   methods: {
     loadAnnouncements() {
       this.$announcements
