@@ -138,13 +138,26 @@ export default {
       }
     },
   },
+  created() {
+    const noticeToOpen = new URL(location.href).searchParams.get('notice');
+    const isWantedNotice = () => this.title.startsWith(noticeToOpen);
+    // Function not var cos sometimes is not required to calculate
+
+    if (noticeToOpen && isWantedNotice()) {
+      this.dialog = true;
+    }
+  },
   methods: {
     onOpen() {
+      const url = new URL(location.href);
+      url.searchParams.append('notice', this.title);
+
       history.pushState(
         {
           notice: this.title,
         },
-        this.title
+        this.title,
+        url.search
       );
 
       window.addEventListener('popstate', this.stateChange);
