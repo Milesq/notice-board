@@ -9,17 +9,6 @@
       "npm --prefix \"$RESOURCE_DIR\" run build"
     ]
   },
-  "hosting": {
-    "public": "dist",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ],
-    "predeploy": ["yarn build"]
-  },
   "storage": {
     "rules": "storage.rules"
   },
