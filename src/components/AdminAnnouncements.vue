@@ -60,7 +60,7 @@ import EditableAnnouncement from './EditableAnnouncement.vue';
 async function sendNotification(notification) {
   const myToken = window.firebase.auth().currentUser.getIdToken();
 
-  const key = await fetch(`${process.env.VUE_APP_firebaseAPI}/getServerKey`, {
+  const { key } = await fetch(`${process.env.VUE_APP_firebaseAPI}/getServerKey`, {
     headers: {
       Authorization: `Bearer ${await myToken}`,
     },
