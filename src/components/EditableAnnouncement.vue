@@ -89,6 +89,7 @@ export default {
       if (this.$refs.form.validate()) {
         this.$emit('save', {
           title: this.title,
+          created_at: new Date().getTime(),
           content: this.content,
         });
 

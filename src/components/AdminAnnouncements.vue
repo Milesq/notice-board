@@ -106,7 +106,6 @@ export default {
       const newDoc = this.$announcements.doc();
       this.announcements.push({
         id: newDoc.id,
-        created_at: new Date().getTime(),
         ...announcement,
       });
       newDoc.set(announcement);
