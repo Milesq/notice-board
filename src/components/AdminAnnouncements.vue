@@ -97,10 +97,14 @@ export default {
   methods: {
     createNew(announcement) {
       this.snackbarSaved = true;
+
+      const url = new URL(location.host);
+      url.searchParams.append('notice', announcement.title);
+
       sendNotification({
-        title: 'FCM Message',
-        body: 'This is an FCM Message',
-        icon: './img/icons/android-chrome-192x192.png',
+        title: 'Nowe Ogłoszenie',
+        body: announcement.title,
+        click_action: url.href,
       });
 
       const newDoc = this.$announcements.doc();
