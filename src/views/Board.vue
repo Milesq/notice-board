@@ -102,12 +102,12 @@ export default {
     );
     window.analytics.logEvent('open_board');
   },
-  /*   mounted() {
+  mounted() {
     const notificationNotGranted = Notification.permission === 'default';
     const timeFromLastAsk = parseInt(localStorage.getItem('timeFromLastAsk')) || 0;
 
     if (notificationNotGranted && now() >= timeFromLastAsk + days(4)) this.askNotification();
-  }, */
+  },
   methods: {
     loadAnnouncements() {
       this.$announcements
