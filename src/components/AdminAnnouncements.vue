@@ -98,7 +98,7 @@ export default {
     createNew(announcement) {
       this.snackbarSaved = true;
 
-      const url = new URL(location.host);
+      const url = new URL(process.env.VUE_APP_host);
       url.searchParams.append('notice', announcement.title);
 
       sendNotification({
