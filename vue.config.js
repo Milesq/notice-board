@@ -23,7 +23,7 @@ module.exports = {
       gcm_sender_id: process.env.VUE_APP_gcm_sender_id,
     },
     workboxOptions: {
-      exclude: [/_redirects/],
+      exclude: [/_redirects/, /\.htaccess/],
       skipWaiting: true,
     },
   },
