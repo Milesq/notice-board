@@ -12,13 +12,13 @@
     "storybook": "start-storybook -p 6006"
   },
   "dependencies": {
-    "@tinymce/tinymce-vue": "^3.2.0",
-    "core-js": "^3.6.4",
-    "firebase": "^7.14.1",
+    "@tinymce/tinymce-vue": "^3.2.2",
+    "core-js": "^3.6.5",
+    "firebase": "^7.16.1",
     "register-service-worker": "^1.7.1",
     "vue": "^2.6.11",
     "vue-i18n": "^8.17.1",
-    "vue-pdf": "^4.0.8",
+    "vue-pdf": "^4.1.0",
     "vue-router": "^3.1.6",
     "vuetify": "^2.2.11"
   },
