@@ -113,7 +113,7 @@ export default {
       this.$announcements
         .get()
         .then(({ docs }) => {
-          this.announcements = docs.map(item => ({ id: item.id, ...item.data() })).reverse();
+          this.announcements = docs.map(item => ({ id: item.id, ...item.data() }));
           this.loaded = true;
         })
         .catch(err => {

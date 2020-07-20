@@ -108,10 +108,13 @@ export default {
       });
 
       const newDoc = this.$announcements.doc();
-      this.announcements.push({
-        id: newDoc.id,
-        ...announcement,
-      });
+      this.announcements = [
+        {
+          id: newDoc.id,
+          ...announcement,
+        },
+        ...this.announcements,
+      ];
       newDoc.set(announcement);
     },
     async readData() {
