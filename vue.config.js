@@ -24,6 +24,7 @@ module.exports = {
     },
     workboxOptions: {
       exclude: [/_redirects/],
+      skipWaiting: true,
     },
   },
 };
