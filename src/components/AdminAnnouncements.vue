@@ -10,7 +10,12 @@
     <v-card-text>
       <template v-if="loaded">
         <v-list subheader three-line v-if="announcements.length">
-          <Draggable ghost-class="ghost" v-model="announcements" @end="updatePosition">
+          <Draggable
+            class="draggable"
+            ghost-class="ghost"
+            v-model="announcements"
+            @end="updatePosition"
+          >
             <!-- div cannot be removed
               see https://github.com/SortableJS/Vue.Draggable/issues/647
             -->
@@ -21,9 +26,17 @@
                 @save="update(idx, $event)"
               >
                 <template v-slot="{ open }">
-                  <div class="handler"></div>
-
                   <v-list-item class="announcement" v-on:click.prevent>
+                    <v-list-item-icon>
+                      <div class="handler">
+                        <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+                          <path
+                            d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"
+                          ></path>
+                          <path d="M0 0h24v24H0z" fill="none"></path>
+                        </svg>
+                      </div>
+                    </v-list-item-icon>
                     <v-list-item-content v-on="open">
                       <v-list-item-title v-html="el.title" />
                       <v-list-item-subtitle>{{ el.content | limit }}</v-list-item-subtitle>
@@ -173,12 +186,19 @@ export default {
 
 <style lang="scss" scoped>
 .handler {
-  width: 30px;
-  height: 30px;
-  background: #000;
+  color: rgba(0, 0, 0, 0.35);
+}
+
+.draggable {
+  cursor: grab;
 }
 
 .ghost {
-  border: 2px solid black;
+  transition: box-shadow 400ms cubic-bezier(0, 0, 0.2, 1);
+  border-radius: 6px;
+  /* prettier-ignore */
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+            0 2px 2px 0 rgba(0, 0, 0, 0.14),
+            0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 </style>
