@@ -115,7 +115,9 @@ export default {
       this.$announcements
         .get()
         .then(({ docs }) => {
-          this.announcements = docs.map(item => ({ id: item.id, ...item.data() }));
+          this.announcements = docs
+            .map(item => ({ id: item.id, ...item.data() }))
+            .sort((a, b) => a.position - b.position);
           this.loaded = true;
         })
         .catch(err => {
