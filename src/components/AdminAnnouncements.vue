@@ -10,28 +10,42 @@
     <v-card-text>
       <template v-if="loaded">
         <v-list subheader three-line v-if="announcements.length">
-          <EditableAnnouncement
-            pass-opener
-            v-for="(el, idx) in announcements"
-            :value="announcements[idx]"
-            @save="update(idx, $event)"
-            :key="el.title + idx"
-          >
-            <template v-slot="{ open }">
-              <v-list-item class="announcement" v-on:click.prevent>
-                <v-list-item-content v-on="open">
-                  <v-list-item-title v-html="el.title" />
-                  <v-list-item-subtitle>{{ el.content | limit }}</v-list-item-subtitle>
-                </v-list-item-content>
+          <Draggable ghost-class="ghost" v-model="announcements" @end="updatePosition">
+            <!-- div cannot be removed
+              see https://github.com/SortableJS/Vue.Draggable/issues/647
+            -->
+            <div v-for="(el, idx) in announcements" :key="idx">
+              <EditableAnnouncement
+                pass-opener
+                :value="announcements[idx]"
+                @save="update(idx, $event)"
+              >
+                <template v-slot="{ open }">
+                  <div class="handler"></div>
 
-                <v-list-item-action>
-                  <v-btn class="mx-2" fab dark small color="error" @click="deleteAnnouncement(el)">
-                    <v-icon dark>mdi-delete</v-icon>
-                  </v-btn>
-                </v-list-item-action>
-              </v-list-item>
-            </template>
-          </EditableAnnouncement>
+                  <v-list-item class="announcement" v-on:click.prevent>
+                    <v-list-item-content v-on="open">
+                      <v-list-item-title v-html="el.title" />
+                      <v-list-item-subtitle>{{ el.content | limit }}</v-list-item-subtitle>
+                    </v-list-item-content>
+
+                    <v-list-item-action>
+                      <v-btn
+                        class="mx-2"
+                        fab
+                        dark
+                        small
+                        color="error"
+                        @click="deleteAnnouncement(el)"
+                      >
+                        <v-icon dark>mdi-delete</v-icon>
+                      </v-btn>
+                    </v-list-item-action>
+                  </v-list-item>
+                </template>
+              </EditableAnnouncement>
+            </div>
+          </Draggable>
         </v-list>
 
         <span v-else>{{ $t('noData') }}</span>
@@ -55,6 +69,7 @@
 </template>
 
 <script>
+import Draggable from 'vuedraggable';
 import EditableAnnouncement from './EditableAnnouncement.vue';
 
 async function sendNotification(notification) {
@@ -82,6 +97,7 @@ async function sendNotification(notification) {
 export default {
   components: {
     EditableAnnouncement,
+    Draggable,
   },
   data: () => ({
     announcements: [],
@@ -118,9 +134,9 @@ export default {
       newDoc.set(announcement);
     },
     async readData() {
-      return (await this.$announcements.get()).docs.map(
-        el => el.exists && { ...el.data(), id: el.id }
-      );
+      return (await this.$announcements.get()).docs
+        .map(el => el.exists && { ...el.data(), id: el.id })
+        .sort((a, b) => a.position - b.position);
     },
     update(idx, { title, content }) {
       const { id } = this.announcements[idx];
@@ -143,6 +159,26 @@ export default {
         this.$announcements.doc(id).delete();
       }
     },
+    updatePosition() {
+      const idNums = this.announcements.map(({ id }) => id);
+      idNums.forEach((id, i) => {
+        this.$announcements.doc(id).update({
+          position: i,
+        });
+      });
+    },
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.handler {
+  width: 30px;
+  height: 30px;
+  background: #000;
+}
+
+.ghost {
+  border: 2px solid black;
+}
+</style>

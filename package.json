@@ -20,6 +20,7 @@
     "vue-i18n": "^8.17.1",
     "vue-pdf": "^4.1.0",
     "vue-router": "^3.1.6",
+    "vuedraggable": "^2.24.1",
     "vuetify": "^2.2.11"
   },
   "devDependencies": {
