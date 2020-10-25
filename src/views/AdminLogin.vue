@@ -1,7 +1,9 @@
 <template>
-  <div class="d-flex justify-center pt-10">
-    <GoogleSingIn @click.native="login" />
-  </div>
+  <v-main>
+    <div class="d-flex justify-center pt-10">
+      <GoogleSingIn @click.native="login" />
+    </div>
+  </v-main>
 </template>
 
 <script>

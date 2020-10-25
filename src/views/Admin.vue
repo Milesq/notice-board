@@ -1,14 +1,16 @@
 <template>
-  <v-container class="mt-8">
-    <v-row>
-      <v-col cols="12" md="6" lg="4">
-        <AdminUsers />
-      </v-col>
-      <v-col cols="12" md="6" lg="8">
-        <AdminAnnouncements />
-      </v-col>
-    </v-row>
-  </v-container>
+  <v-main class="grey lighten-5">
+    <v-container class="mt-8">
+      <v-row>
+        <v-col cols="12" md="6" lg="4">
+          <AdminUsers />
+        </v-col>
+        <v-col cols="12" md="6" lg="8">
+          <AdminAnnouncements />
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-main>
 </template>
 
 <script>

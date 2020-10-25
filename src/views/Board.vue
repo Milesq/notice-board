@@ -1,50 +1,52 @@
 <template>
-  <div class="about pt-8 px-8">
-    <h1 class="d-none d-md-flex justify-center">{{ $t('title') }}</h1>
-    <v-divider class="my-8 d-none d-md-block" />
-    <v-container width="90%">
-      <template v-if="loaded">
-        <v-row v-if="announcements.length">
-          <v-col
-            v-for="(item, i) in announcements"
-            :key="`announcement-${i}`"
-            cols="12"
-            sm="6"
-            md="4"
-          >
-            <ShowAnnouncement
-              :title="item.title"
-              :content="item.content"
-              :timestamp="{
-                created: item.created_at,
-                updated: item.updated_at,
-              }"
-            />
+  <v-main>
+    <div class="about pt-8 px-8">
+      <h1 class="d-none d-md-flex justify-center">{{ $t('title') }}</h1>
+      <v-divider class="my-8 d-none d-md-block" />
+      <v-container width="90%">
+        <template v-if="loaded">
+          <v-row v-if="announcements.length">
+            <v-col
+              v-for="(item, i) in announcements"
+              :key="`announcement-${i}`"
+              cols="12"
+              sm="6"
+              md="4"
+            >
+              <ShowAnnouncement
+                :title="item.title"
+                :content="item.content"
+                :timestamp="{
+                  created: item.created_at,
+                  updated: item.updated_at,
+                }"
+              />
+            </v-col>
+          </v-row>
+
+          <v-row v-else justify="center">{{ $t('noData') }}</v-row>
+        </template>
+        <v-row v-else>
+          <v-col v-for="item in 6" :key="`announcement-skeleton-${item}`" cols="12" :sm="4">
+            <v-skeleton-loader type="article" class="elevation-1" />
           </v-col>
         </v-row>
+      </v-container>
 
-        <v-row v-else justify="center">{{ $t('noData') }}</v-row>
-      </template>
-      <v-row v-else>
-        <v-col v-for="item in 6" :key="`announcement-skeleton-${item}`" cols="12" :sm="4">
-          <v-skeleton-loader type="article" class="elevation-1" />
-        </v-col>
-      </v-row>
-    </v-container>
+      <v-bottom-sheet v-model="notificationPropose" inset>
+        <v-sheet class="text-center" height="200px">
+          <div class="py-6 px-6 px-md-0">{{ $t('notificationAsk') }}</div>
 
-    <v-bottom-sheet v-model="notificationPropose" inset>
-      <v-sheet class="text-center" height="200px">
-        <div class="py-6 px-6 px-md-0">{{ $t('notificationAsk') }}</div>
-
-        <v-btn class="mx-6" color="primary" @click="notificationAskAllow">{{
-          $t('notificationAllow')
-        }}</v-btn>
-        <v-btn class="mx-6" color="error" @click="notificationAskDeny">{{
-          $t('notificationDeny')
-        }}</v-btn>
-      </v-sheet>
-    </v-bottom-sheet>
-  </div>
+          <v-btn class="mx-6" color="primary" @click="notificationAskAllow">{{
+            $t('notificationAllow')
+          }}</v-btn>
+          <v-btn class="mx-6" color="error" @click="notificationAskDeny">{{
+            $t('notificationDeny')
+          }}</v-btn>
+        </v-sheet>
+      </v-bottom-sheet>
+    </div>
+  </v-main>
 </template>
 
 <script>
