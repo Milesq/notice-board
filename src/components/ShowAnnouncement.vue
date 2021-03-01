@@ -40,7 +40,7 @@
         <v-toolbar-title v-text="title" />
       </v-toolbar>
 
-      <v-card-text style="min-height: 40vh;" class="pt-4">
+      <v-card-text style="min-height: 40vh" class="pt-4">
         <p v-html="contentWithPdf" />
         <PdfLoader v-for="(pdf, i) in pdfFiles" :src="pdf" :key="`pdf-${i}`" />
       </v-card-text>

@@ -14,6 +14,7 @@ module.exports = {
     'no-unused-vars': 'warn',
     'vue/no-unused-vars': 'warn',
     'vue/no-unused-components': 'warn',
+    'vue/valid-v-slot': 'off',
     'vue/order-in-components': [
       'error',
       {
