@@ -19,9 +19,8 @@ const msg = admin.messaging();
 
 const uuidToken = () => admin.auth().createCustomToken('anonymous-account');
 
-export const checkUserName = functions.https.onRequest(async (request, response) => {
+export const checkUserName = functions.https.onCall(async ({ name }, ctx) => {
   try {
-    const { name } = JSON.parse(request.body);
     console.warn(`Try logged at ${new Date()} - ${name}`);
 
     const users = await Promise.all(
@@ -33,16 +32,14 @@ export const checkUserName = functions.https.onRequest(async (request, response)
       name
     );
 
-    response.setHeader('Access-Control-Allow-Origin', '*');
-
-    response.send({
+    return {
       token: isAllowed ? await uuidToken() : '',
-    });
+    };
   } catch {
-    response.send({
+    return {
       token: '',
       err: 'Something went wrong',
-    });
+    };
   }
 });
 
