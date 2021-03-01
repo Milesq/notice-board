@@ -8,7 +8,8 @@
       v-if="editorOptions"
       :init="editorOptions"
     />
-    <input id="file-input" type="file" style="display: none" />
+    <!-- prettier-ignore -->
+    <input id="file-input" type="file" style="display: none;" />
   </span>
 </template>
 
