@@ -19,7 +19,7 @@ Vue.config.productionTip = false;
 
 if (location.hostname === 'localhost') {
   firebase.functions().useEmulator('localhost', 5001);
-  firebase.firestore().useEmulator('localhost', 5001);
+  firebase.firestore().useEmulator('localhost', 8080);
 }
 
 new Vue({
