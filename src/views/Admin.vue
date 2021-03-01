@@ -1,5 +1,5 @@
 <template>
-  <v-main class="grey lighten-5">
+  <v-main :class="!$vuetify.theme.dark && 'grey lighten-5'">
     <v-container class="mt-8">
       <v-row>
         <v-col cols="12" md="6" lg="4">
