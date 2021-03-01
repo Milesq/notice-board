@@ -31,7 +31,6 @@
 </template>
 
 <script>
-import config from '../../config.js';
 import { nameRules } from '@/utils';
 
 export default {
@@ -65,10 +64,10 @@ export default {
       if (!this.$refs.form.validate()) return;
 
       this.loading = true;
-      const { token } = await fetch(`${config.firebaseAPI}/checkUserName`, {
-        method: 'POST',
-        body: JSON.stringify({ name: this.name }),
-      }).then(resp => resp.json());
+      const checkUserName = window.firebase.functions().httpsCallable('checkUserName');
+      const {
+        data: { token },
+      } = await checkUserName({ name: this.name });
 
       if (token == '') {
         this.loadingType = 'error';
