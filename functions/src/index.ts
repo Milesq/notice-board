@@ -1,13 +1,15 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
+import { config as dotenv } from 'dotenv';
+import { join } from 'path';
 import matchName from './matchName';
-import * as env from './env';
+
+dotenv({ path: join(__dirname, '../../.env.local') })
 
 const serviceAccount = require('../credentials.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: env.databaseURL,
 });
 
 enum TOPICS {
@@ -16,6 +18,7 @@ enum TOPICS {
 
 const db = admin.firestore();
 const msg = admin.messaging();
+const admins = JSON.parse(process.env.VUE_APP_admins || '[]');
 
 const uuidToken = () => admin.auth().createCustomToken('anonymous-account');
 
@@ -82,7 +85,7 @@ export const getServerKey = functions.https.onRequest(async (request, response) 
       return;
     }
 
-    if (!env.admins.includes(email)) {
+    if (!admins.includes(email)) {
       response.status(401).send({
         error: 'You are not an admin!'
       });
@@ -90,7 +93,7 @@ export const getServerKey = functions.https.onRequest(async (request, response) 
     }
 
     response.send({
-      key: env.cloud_messaging_server_key,
+      key: process.env.cloud_messaging_server_key,
     });
   } catch {
     response.status(500).send({
