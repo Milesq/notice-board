@@ -22,7 +22,7 @@ const admins = JSON.parse(process.env.VUE_APP_admins || '[]');
 
 const uuidToken = () => admin.auth().createCustomToken('anonymous-account');
 
-export const checkUserName = functions.https.onCall(async ({ name }, ctx) => {
+export const checkUserName = functions.https.onCall(async ({ name }) => {
   try {
     console.warn(`Try logged at ${new Date()} - ${name}`);
 
@@ -46,21 +46,8 @@ export const checkUserName = functions.https.onCall(async ({ name }, ctx) => {
   }
 });
 
-export const subscribeMe = functions.https.onRequest(async (request, response) => {
-  response.setHeader('Access-Control-Allow-Origin', '*');
-
-  try {
-    const { token } = JSON.parse(request.body);
-
-    await msg.subscribeToTopic(token, TOPICS.NEW_ANNOUNCEMENT);
-    response.send({
-      data: true,
-    });
-  } catch {
-    response.send({
-      err: 'Something went wrong',
-    });
-  }
+export const subscribeMe = functions.https.onCall(async (token) => {
+  await msg.subscribeToTopic(token, TOPICS.NEW_ANNOUNCEMENT);
 });
 
 export const getServerKey = functions.https.onCall(async (_, { auth }) => {

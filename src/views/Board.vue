@@ -65,10 +65,7 @@ function subscribeNewAnnounements() {
    * @param {string} token
    */
   function subscribibeToTopic(token) {
-    fetch(`${process.env.VUE_APP_firebaseAPI}/subscribeMe`, {
-      method: 'POST',
-      body: JSON.stringify({ token }),
-    });
+    window.firebase.functions().httpsCallable('subscribeMe')(token);
   }
 
   const messaging = window.firebase.messaging();
