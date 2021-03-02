@@ -90,13 +90,10 @@ import Draggable from 'vuedraggable';
 import EditableAnnouncement from './EditableAnnouncement.vue';
 
 async function sendNotification(notification) {
-  const myToken = window.firebase.auth().currentUser.getIdToken();
-
-  const { key } = await fetch(`${process.env.VUE_APP_firebaseAPI}/getServerKey`, {
-    headers: {
-      Authorization: `Bearer ${await myToken}`,
-    },
-  }).then(r => r.json());
+  const getServerKey = window.firebase.functions().httpsCallable('getServerKey');
+  const {
+    data: { key },
+  } = await getServerKey();
 
   return fetch('https://fcm.googleapis.com/fcm/send', {
     method: 'POST',
