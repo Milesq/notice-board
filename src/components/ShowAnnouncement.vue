@@ -136,6 +136,8 @@ export default {
         window.analytics.logEvent('open_notification', {
           notice: this.title,
         });
+      } else {
+        location.search = '';
       }
     },
   },
