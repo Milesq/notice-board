@@ -4,7 +4,7 @@ import { config as dotenv } from 'dotenv';
 import { join } from 'path';
 import matchName from './matchName';
 
-dotenv({ path: join(__dirname, '../../.env.local') })
+dotenv({ path: join(__dirname, '../../.env.local') });
 
 const serviceAccount = require('../credentials.json');
 
@@ -46,22 +46,22 @@ export const checkUserName = functions.https.onCall(async ({ name }) => {
   }
 });
 
-export const subscribeMe = functions.https.onCall(async (token) => {
+export const subscribeMe = functions.https.onCall(async token => {
   await msg.subscribeToTopic(token, TOPICS.NEW_ANNOUNCEMENT);
 });
 
 export const getServerKey = functions.https.onCall(async (_, { auth }) => {
-  const email = auth?.token?.email
+  const email = auth?.token?.email;
 
   if (!email) {
     return {
-      error: 'There is no email connect with you!'
+      error: 'There is no email connect with you!',
     };
   }
 
   if (!admins.includes(email)) {
     return {
-      error: 'You are not an admin!'
+      error: 'You are not an admin!',
     };
   }
 

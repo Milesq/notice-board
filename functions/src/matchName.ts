@@ -1,4 +1,4 @@
-export default function(arr: string[], name: string): boolean {
+export default function (arr: string[], name: string): boolean {
   const accentsIn = 'ęóąśłżźćń'.split('');
   const accentsOut = 'eoaslzzcn'.split('');
   const accents: { [letter: string]: string } = accentsIn.reduce(

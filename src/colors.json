@@ -1,9 +1,9 @@
 {
   "light": {
     "primary": "#69b7dd"
-    },
-    "dark": {
-      "secondary": "#B37F3E",
-      "accent": "#5092B3"
-    }
+  },
+  "dark": {
+    "secondary": "#B37F3E",
+    "accent": "#5092B3"
+  }
 }
