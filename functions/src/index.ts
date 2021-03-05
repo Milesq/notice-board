@@ -12,14 +12,7 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
 
-enum TOPICS {
-  NEW_ANNOUNCEMENT = 'newAnnouncement',
-}
-
 const db = admin.firestore();
-const msg = admin.messaging();
-const admins = JSON.parse(process.env.VUE_APP_admins || '[]');
-
 const uuidToken = () => admin.auth().createCustomToken('anonymous-account');
 
 export const checkUserName = functions.https.onCall(async ({ name }) => {
@@ -44,30 +37,6 @@ export const checkUserName = functions.https.onCall(async ({ name }) => {
       err: 'Something went wrong',
     };
   }
-});
-
-export const subscribeMe = functions.https.onCall(async token => {
-  await msg.subscribeToTopic(token, TOPICS.NEW_ANNOUNCEMENT);
-});
-
-export const getServerKey = functions.https.onCall(async (_, { auth }) => {
-  const email = auth?.token?.email;
-
-  if (!email) {
-    return {
-      error: 'There is no email connect with you!',
-    };
-  }
-
-  if (!admins.includes(email)) {
-    return {
-      error: 'You are not an admin!',
-    };
-  }
-
-  return {
-    key: process.env.cloud_messaging_server_key,
-  };
 });
 
 export const deleteUnusedMedia = functions.firestore

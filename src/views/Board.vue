@@ -32,19 +32,6 @@
           </v-col>
         </v-row>
       </v-container>
-
-      <v-bottom-sheet v-model="notificationPropose" inset>
-        <v-sheet class="text-center" height="200px">
-          <div class="py-6 px-6 px-md-0">{{ $t('notificationAsk') }}</div>
-
-          <v-btn class="mx-6" color="primary" @click="notificationAskAllow">{{
-            $t('notificationAllow')
-          }}</v-btn>
-          <v-btn class="mx-6" color="error" @click="notificationAskDeny">{{
-            $t('notificationDeny')
-          }}</v-btn>
-        </v-sheet>
-      </v-bottom-sheet>
     </div>
   </v-main>
 </template>
@@ -53,37 +40,6 @@
 import 'firebase/messaging';
 import ShowAnnouncement from '../components/ShowAnnouncement.vue';
 
-const secs = ms => ms * 1000;
-const minutes = s => 60 * secs(s);
-const hours = m => 60 * minutes(m);
-const days = h => 24 * hours(h);
-
-const now = () => new Date().getTime();
-
-function subscribeNewAnnounements() {
-  /**
-   * @param {string} token
-   */
-  function subscribibeToTopic(token) {
-    window.firebase.functions().httpsCallable('subscribeMe')(token);
-  }
-
-  const messaging = window.firebase.messaging();
-
-  messaging.usePublicVapidKey(process.env.VUE_APP_cloud_messaging_vapid_key);
-
-  const subscribibeToTopicWithToken = () => messaging.getToken().then(subscribibeToTopic);
-
-  messaging.onTokenRefresh(subscribibeToTopicWithToken);
-
-  messaging
-    .requestPermission()
-    .then(subscribibeToTopicWithToken)
-    .catch(err => {
-      console.warn('Unable to get permission to notify.', err);
-    });
-}
-
 export default {
   components: {
     ShowAnnouncement,
@@ -91,7 +47,6 @@ export default {
   data: () => ({
     announcements: [],
     loaded: false,
-    notificationPropose: false,
   }),
   created() {
     this.loadAnnouncements();
@@ -115,17 +70,6 @@ export default {
           console.warn('Cannot download data', err);
           setTimeout(this.loadAnnouncements, 300);
         });
-    },
-    askNotification() {
-      this.notificationPropose = true;
-    },
-    notificationAskAllow() {
-      this.notificationPropose = false;
-      setTimeout(subscribeNewAnnounements, 300);
-    },
-    notificationAskDeny() {
-      this.notificationPropose = false;
-      localStorage.setItem('timeFromLastAsk', now());
     },
   },
 };
