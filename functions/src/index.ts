@@ -22,7 +22,7 @@ const admins = JSON.parse(process.env.VUE_APP_admins || '[]');
 
 const uuidToken = () => admin.auth().createCustomToken('anonymous-account');
 
-export const checkUserName = functions.https.onCall(async ({ name }) => {
+export const checkUserName = functions.region('europe-west1').https.onCall(async ({ name }) => {
   try {
     console.warn(`Try logged at ${new Date()} - ${name}`);
 
@@ -46,11 +46,11 @@ export const checkUserName = functions.https.onCall(async ({ name }) => {
   }
 });
 
-export const subscribeMe = functions.https.onCall(async token => {
+export const subscribeMe = functions.region('europe-west1').https.onCall(async token => {
   await msg.subscribeToTopic(token, TOPICS.NEW_ANNOUNCEMENT);
 });
 
-export const getServerKey = functions.https.onCall(async (_, { auth }) => {
+export const getServerKey = functions.region('europe-west1').https.onCall(async (_, { auth }) => {
   const email = auth?.token?.email;
 
   if (!email) {
@@ -70,8 +70,9 @@ export const getServerKey = functions.https.onCall(async (_, { auth }) => {
   };
 });
 
-export const deleteUnusedMedia = functions.firestore
-  .document('announcements/{content}')
+export const deleteUnusedMedia = functions
+  .region('europe-west1')
+  .firestore.document('announcements/{content}')
   .onDelete(data => {
     const { content } = data.data();
     console.warn(content);
