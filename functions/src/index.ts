@@ -39,8 +39,9 @@ export const checkUserName = functions.https.onCall(async ({ name }) => {
   }
 });
 
-export const deleteUnusedMedia = functions.firestore
-  .document('announcements/{content}')
+export const deleteUnusedMedia = functions
+  .region('europe-west1')
+  .firestore.document('announcements/{content}')
   .onDelete(data => {
     const { content } = data.data();
     console.warn(content);
