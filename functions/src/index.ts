@@ -15,7 +15,7 @@ admin.initializeApp({
 const db = admin.firestore();
 const uuidToken = () => admin.auth().createCustomToken('anonymous-account');
 
-export const checkUserName = functions.https.onCall(async ({ name }) => {
+export const checkUserName = functions.region('europe-west1').https.onCall(async ({ name }) => {
   try {
     console.warn(`Try logged at ${new Date()} - ${name}`);
 
