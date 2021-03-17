@@ -5,7 +5,6 @@
         <v-slide-y-transition>
           <v-card
             v-on="on"
-            @click="onOpen"
             :min-height="tileMinHeight"
             :class="['grey', theme.isDark ? 'darken-3' : 'lighten-4']"
             :elevation="hover ? 4 : 1"
@@ -133,11 +132,12 @@ export default {
   watch: {
     dialog(isOpen) {
       if (isOpen) {
+        this.onOpen();
         window.analytics.logEvent('open_notification', {
           notice: this.title,
         });
       } else {
-        location.search = '';
+        history.back();
       }
     },
   },
