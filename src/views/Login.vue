@@ -10,7 +10,7 @@
                 <v-progress-circular indeterminate :color="loadingType" v-if="loading" />
               </div>
               <v-form ref="form" @submit.prevent="submit">
-                <v-text-field v-model="name" :label="$t('nameAndSurname')" />
+                <v-text-field v-model="name" type="password" :label="$t('nameAndSurname')" />
                 <v-divider />
                 <v-card-actions>
                   <v-spacer />
