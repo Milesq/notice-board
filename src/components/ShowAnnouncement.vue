@@ -152,6 +152,11 @@ export default {
   },
   methods: {
     onOpen() {
+      if (!location.search) {
+        this.addSearchParam();
+      }
+    },
+    addSearchParam() {
       const url = new URL(location.href);
       url.searchParams.append('notice', this.title);
 
