@@ -1,6 +1,6 @@
 [
   {
-    "origin": ["https://tablicaszubin.web.app/"],
+    "origin": ["*"],
     "method": ["GET"],
     "maxAgeSeconds": 3600
   }
