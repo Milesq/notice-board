@@ -50,24 +50,43 @@ export const subscribeMe = functions.region('europe-west1').https.onCall(async t
   await msg.subscribeToTopic(token, TOPICS.NEW_ANNOUNCEMENT);
 });
 
-export const getServerKey = functions.region('europe-west1').https.onCall(async (_, { auth }) => {
-  const email = auth?.token?.email;
+export const getServerKey = functions.https.onRequest(async (request, response) => {
+  try {
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    response.setHeader('Access-Control-Allow-Headers', 'Authorization');
+    const tokenId = request.get('Authorization')?.split('Bearer ')[1];
 
-  if (!email) {
-    return {
-      error: 'There is no email connect with you!',
-    };
+    if (!tokenId) {
+      response.send({
+        error: 'You must pass token!'
+      });
+      return;
+    }
+
+    const { email } = await admin.auth().verifyIdToken(tokenId);
+
+    if (!email) {
+      response.status(401).send({
+        error: 'There is no email connect with your token!'
+      });
+      return;
+    }
+
+    if (!admins.includes(email)) {
+      response.status(401).send({
+        error: 'You are not an admin!'
+      });
+      return;
+    }
+
+    response.send({
+      key: process.env.cloud_messaging_server_key,
+    });
+  } catch {
+    response.status(500).send({
+      error: 'Server error'
+    });
   }
-
-  if (!admins.includes(email)) {
-    return {
-      error: 'You are not an admin!',
-    };
-  }
-
-  return {
-    key: process.env.cloud_messaging_server_key,
-  };
 });
 
 export const deleteUnusedMedia = functions
