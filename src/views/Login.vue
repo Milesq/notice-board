@@ -64,10 +64,11 @@ export default {
       if (!this.$refs.form.validate()) return;
 
       this.loading = true;
-      const checkUserName = window.firebase.functions().httpsCallable('checkUserName');
-      const {
-        data: { token },
-      } = await checkUserName({ name: this.name });
+
+      const { token } = await fetch(`${process.env.VUE_APP_firebaseAPI}/checkUserName`, {
+        method: 'POST',
+        body: JSON.stringify({ name: this.name }),
+      }).then(resp => resp.json());
 
       if (token == '') {
         this.loadingType = 'error';
