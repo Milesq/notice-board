@@ -1,7 +1,7 @@
 rules_version = '2';
 service firebase.storage {
   function isAdmin(email) {
-  	return email in ["wmilosz88@gmail.com", "ecofirma.kmiec@gmail.com"];
+  	return email in ["wmilosz88@gmail.com", "rafal.banaszak@gmail.com"];
   }
 
   match /b/{bucket}/o {
