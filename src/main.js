@@ -22,6 +22,8 @@ if (location.hostname === 'localhost') {
   firebase.firestore().useEmulator('localhost', 8080);
 }
 
+firebase.functions().region = 'europe-west1';
+
 new Vue({
   router,
   vuetify,
