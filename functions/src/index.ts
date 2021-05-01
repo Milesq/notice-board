@@ -50,7 +50,7 @@ export const subscribeMe = functions.region('europe-west1').https.onCall(async t
   await msg.subscribeToTopic(token, TOPICS.NEW_ANNOUNCEMENT);
 });
 
-export const getServerKey = functions.https.onRequest(async (request, response) => {
+export const getServerKey = functions.region('europe-west1').https.onRequest(async (request, response) => {
   try {
     response.setHeader('Access-Control-Allow-Origin', '*');
     response.setHeader('Access-Control-Allow-Headers', 'Authorization');

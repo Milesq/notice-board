@@ -6,7 +6,7 @@ Vue.use(VueI18n);
 const messages = {
   en: {
     home: 'Home',
-    title: 'Notice board',
+    title: 'Notice board - Łódź Doły',
     announcement: 'announcement',
     nameAndSurname: 'Password',
     typeName: 'Type pass',
@@ -37,7 +37,7 @@ const messages = {
   },
   pl: {
     home: 'Strona główna',
-    title: 'Tablica ogłoszeń',
+    title: 'Tablica ogłoszeń - Łódź Doły',
     announcement: 'ogłoszenie',
     nameAndSurname: 'Hasło',
     typeName: 'Podaj hasło',
