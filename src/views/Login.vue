@@ -10,7 +10,7 @@
                 <v-progress-circular indeterminate :color="loadingType" v-if="loading" />
               </div>
               <v-form ref="form" @submit.prevent="submit">
-                <v-text-field :rules="nameRules" v-model="name" :label="$t('nameAndSurname')" />
+                <v-text-field v-model="name" type="password" :label="$t('nameAndSurname')" />
                 <v-divider />
                 <v-card-actions>
                   <v-spacer />
@@ -31,8 +31,6 @@
 </template>
 
 <script>
-import { nameRules } from '@/utils';
-
 export default {
   data() {
     return {
@@ -40,10 +38,6 @@ export default {
       loading: false,
       loadingType: 'primary',
       snackbar: false,
-      nameRules: [
-        val => val.length >= 4 || this.$t('tooShort', { minVal: 4 }),
-        ...nameRules.apply(this),
-      ],
     };
   },
   watch: {
@@ -64,11 +58,10 @@ export default {
       if (!this.$refs.form.validate()) return;
 
       this.loading = true;
-
-      const { token } = await fetch(`${process.env.VUE_APP_firebaseAPI}/checkUserName`, {
-        method: 'POST',
-        body: JSON.stringify({ name: this.name }),
-      }).then(resp => resp.json());
+      const checkUserName = window.firebase.functions().httpsCallable('checkUserName');
+      const {
+        data: { token },
+      } = await checkUserName({ name: this.name });
 
       if (token == '') {
         this.loadingType = 'error';
