@@ -40,7 +40,7 @@ export default {
 
     this.editorOptions = {
       height: 400,
-      menubar: false,
+      menubar: true,
       plugins: [
         'advlist autolink lists link charmap print preview anchor',
         'searchreplace visualblocks fullscreen',

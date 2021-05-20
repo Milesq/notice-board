@@ -32,7 +32,8 @@ const tinyMceButton = (text, createHTMLElement) => (editor, inputID, onStart, on
 
 const img = tinyMceButton(
   'Image',
-  (url, includedMedia) => `<img src="${url}" data-toremove="${includedMedia}" alt="" />`
+  (url, includedMedia) =>
+    `<img src="${url}" width="100%" data-toremove="${includedMedia}" alt="" />`
 );
 const pdf = tinyMceButton(
   'PDF',
