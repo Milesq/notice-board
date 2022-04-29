@@ -18,11 +18,12 @@ enum TOPICS {
 
 const db = admin.firestore();
 const msg = admin.messaging();
+const fn = functions.region('europe-west1')
 const admins = JSON.parse(process.env.VUE_APP_admins || '[]');
 
 const uuidToken = () => admin.auth().createCustomToken('anonymous-account');
 
-export const checkUserName = functions.region('europe-west1').https.onCall(async ({ name }) => {
+export const checkUserName = fn.https.onCall(async ({ name }) => {
   try {
     console.warn(`Try logged at ${new Date()} - ${name}`);
 
@@ -46,11 +47,11 @@ export const checkUserName = functions.region('europe-west1').https.onCall(async
   }
 });
 
-export const subscribeMe = functions.region('europe-west1').https.onCall(async token => {
+export const subscribeMe = fn.https.onCall(async token => {
   await msg.subscribeToTopic(token, TOPICS.NEW_ANNOUNCEMENT);
 });
 
-export const getServerKey = functions.https.onRequest(async (request, response) => {
+export const getServerKey = fn.https.onRequest(async (request, response) => {
   try {
     response.setHeader('Access-Control-Allow-Origin', '*');
     response.setHeader('Access-Control-Allow-Headers', 'Authorization');
@@ -89,8 +90,7 @@ export const getServerKey = functions.https.onRequest(async (request, response) 
   }
 });
 
-export const deleteUnusedMedia = functions
-  .region('europe-west1')
+export const deleteUnusedMedia = fn
   .firestore.document('announcements/{content}')
   .onDelete(data => {
     const { content } = data.data();
