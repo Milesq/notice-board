@@ -22,6 +22,10 @@
                 }"
               />
             </v-col>
+
+            <v-col cols="12" sm="6" md="4">
+              <ShowAnnouncement title="Grafik Wózków" @open="launchMinistrySheet" />
+            </v-col>
           </v-row>
 
           <v-row v-else justify="center">{{ $t('noData') }}</v-row>
@@ -132,6 +136,9 @@ export default {
     notificationAskDeny() {
       this.notificationPropose = false;
       localStorage.setItem('timeFromLastAsk', now());
+    },
+    launchMinistrySheet() {
+      location.href = 'http://wozki.bydgoszcz-polnoc.pl/';
     },
   },
 };

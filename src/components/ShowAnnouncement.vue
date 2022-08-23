@@ -155,6 +155,8 @@ export default {
       if (!location.search) {
         this.addSearchParam();
       }
+
+      this.$emit('open');
     },
     addSearchParam() {
       const url = new URL(location.href);
