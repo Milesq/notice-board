@@ -138,7 +138,7 @@ export default {
       localStorage.setItem('timeFromLastAsk', now());
     },
     launchMinistrySheet() {
-      location.href = 'http://wozki.bydgoszcz-polnoc.pl/';
+      window.open('http://wozki.bydgoszcz-polnoc.pl/', '_blank');
     },
   },
 };
