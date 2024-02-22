@@ -2,7 +2,6 @@ import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import { config as dotenv } from 'dotenv';
 import { join } from 'path';
-import matchName from './matchName';
 
 dotenv({ path: join(__dirname, '../../.env.local') });
 
@@ -30,10 +29,7 @@ export const checkUserName = functions.region('europe-west1').https.onCall(async
       (await db.collection('users').listDocuments()).map(async el => (await el.get()).data())
     );
 
-    const isAllowed = matchName(
-      users.map(el => el?.name),
-      name
-    );
+    const isAllowed = users[0]?.name === name
 
     return {
       token: isAllowed ? await uuidToken() : '',

@@ -18,8 +18,9 @@ window.analytics = firebase.analytics();
 Vue.config.productionTip = false;
 
 if (location.hostname === 'localhost') {
-  firebase.functions().useEmulator('localhost', 5001);
-  firebase.firestore().useEmulator('localhost', 8080);
+  // console.log(firebase.functions())
+  // firebase.functions().useFunctionsEmulator('http://127.0.0.1:5001');
+  // firebase.firestore().useEmulator('localhost', 8080);
 }
 
 firebase.functions().region = 'europe-west1';
